@@ -4,18 +4,35 @@ var productSchema = mongoose.Schema({});
 
 var Products = module.exports = mongoose.model('Products', productSchema);
 
+/* simple product collection containg all products in single response */
 module.exports.getProducts = function(defaultCallback){
 	Products.find(defaultCallback);
 };
 
+/* get filtred products by given category */
 module.exports.getProductsByCategory = function(categoryId, defaultCallback){
 	Products.find({categoryId: ObjectID(categoryId)}, defaultCallback);
 };
 
+/* get filtred products by given category with product id */
 module.exports.getSelectedProductBycategoryId = function(categoryId, productId, defaultCallback){
 	Products.find({categoryId: ObjectID(categoryId), _id: productId}, defaultCallback);
 };
 
-module.exports.getAllTypeProductsLength = function(defaultCallback){
-	Products.find({}, defaultCallback);
+/* model to count products available in database based on category id 
+	if 'all-products' was passed a category, it means need to go throug all products
+	available in database, to count and return available product length
+*/
+module.exports.getProductCount = function(query, defaultCallback){
+	query = query.categoryId === 'all-products' ? {} : {categoryId: ObjectID(query.categoryId)};
+	Products.find(query, defaultCallback);
+};
+
+/* model to filed name range, (Example: price, oldprice, newprice) products available in database based on category id 
+	if 'all-products' was passed a category, it means need to go throug all products
+	available in database, to count and return available product's range length
+*/
+module.exports.getProductRange = function(query, defaultCallback){
+	query = query.categoryId === 'all-products' ? {} : {categoryId: ObjectID(query.categoryId)};
+	Products.find(query, defaultCallback);
 };

@@ -19,10 +19,6 @@
 				        array.push(property + '=' + encodeURIComponent(object[property]));
 				        return array;
 				    }, []).join('&');
-			},
-
-			getPrimaryMenu: function (){
-				return http.get('/categories');
 			}
 		};
 

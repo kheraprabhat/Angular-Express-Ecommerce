@@ -131,6 +131,56 @@
                 }
             })
 
+            .state('/checkout', {
+                url: '/checkout',
+
+                views: {
+                    "main": {
+                        controller: 'CheckoutMainCtrl',
+                        controllerAs: 'checkout',
+                        templateUrl: 'views/checkout/checkout.html'
+                    }
+                },
+
+                data: {
+                    pageTitle: 'Checkout'
+                }
+            })
+            
+            .state('/checkout/shipping', {
+                url: '/checkout/shipping',
+
+                views: {
+                    "main": {
+                        controller: 'CheckoutShippingCtrl',
+                        controllerAs: 'checkoutShipping',
+                        templateUrl: 'views/checkout/shipping.html'
+                    }
+                },
+
+                data: {
+                    pageTitle: 'Checkout'
+                }
+            })
+
+
+
+            .state('/checkout/payment', {
+                url: '/checkout/payment',
+
+                views: {
+                    "main": {
+                        controller: 'CheckoutPaymentCtrl',
+                        controllerAs: 'checkoutPayment',
+                        templateUrl: 'views/checkout/payment.html'
+                    }
+                },
+
+                data: {
+                    pageTitle: 'Checkout'
+                }
+            })
+
             .state('/login', {
                 url: '/login',
 
@@ -160,6 +210,22 @@
 
                 data: {
                     pageTitle: 'Register'
+                }
+            })
+
+            .state('/blogs', {
+                url: '/blogs',
+
+                views: {
+                    "main": {
+                        controller: 'BlogsMainCtrl',
+                        controllerAs: 'blogs',
+                        templateUrl: 'views/blogs/blogs.html'
+                    }
+                },
+
+                data: {
+                    pageTitle: 'Blogs'
                 }
             });
         }

@@ -43,6 +43,7 @@
 							<li><a href="#/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 							<li><a href="#/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
 							<li><a href="#/login"><i class="fa fa-lock"></i> Login</a></li>
+							<li><a href="#/blogs"><i class="fa fa-lock"></i> Blogs</a></li>
 						</ul>
 					</div>
 				</div>
@@ -65,6 +66,10 @@
 					<div class="mainmenu pull-left">
 
 						<ul class="nav navbar-nav collapse navbar-collapse">
+							<li>
+								<a href="#/shop/all-products">shop</a>
+							</li>
+							
 							<li ng-repeat="menu in header.primaryMenu track by $index">
 								<a href="#/shop/{{menu._id}}">{{menu.name}}</a>
 							</li>

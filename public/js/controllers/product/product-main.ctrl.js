@@ -1,11 +1,11 @@
 (function (app) {
 	'use strict';
     app.controller('ProductMainCtrl', ['$stateParams', 'productSrvc', function(stateParams, productSrvc){
-    	var context = this;
-    	context.selectedProduct = [];
-    	context.categoryName = stateParams.categoryName;
+    	var vm = this;
+    	vm.selectedProduct = [];
+    	vm.categoryName = stateParams.categoryName;
     	productSrvc.getSelectedProduct(stateParams.categoryName, stateParams.productId).then(function(response){
-    		context.selectedProduct = response.data[0];
+    		vm.selectedProduct = response.data[0];
     	});
     }]);
 })(angular.module("Timberland"));
