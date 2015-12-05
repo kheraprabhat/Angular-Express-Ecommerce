@@ -3,4 +3,4 @@
 	app.controller('GiftCardsMainCtrl', ['giftcardsSrvc', function(giftcardsSrvc){
 		
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

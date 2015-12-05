@@ -3,4 +3,4 @@
 	app.controller('FindStoreMainCtrl', ['findStoreSrvc', function(findStoreSrvc){
 		
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

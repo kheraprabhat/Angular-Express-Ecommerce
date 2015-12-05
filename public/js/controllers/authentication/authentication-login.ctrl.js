@@ -3,4 +3,4 @@
 	app.controller('AuthenticationLoginCtrl', ['authenticationSrvc', function(authenticationSrvc){
 		
 	}]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

@@ -3,4 +3,4 @@
 	app.controller('BlogsMainCtrl', ['blogsSrvc', function(authenticationSrvc){
 		
 	}]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

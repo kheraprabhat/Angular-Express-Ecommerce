@@ -7,4 +7,4 @@
     		vm.primaryMenu = data;
     	});
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

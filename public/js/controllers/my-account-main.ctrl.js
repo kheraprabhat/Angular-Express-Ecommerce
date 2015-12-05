@@ -3,4 +3,4 @@
 	app.controller('MyAccountMainCtrl', ['myAccountSrvc', function(myAccountSrvc){
 		
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

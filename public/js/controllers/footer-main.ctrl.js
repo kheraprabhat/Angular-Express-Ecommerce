@@ -3,4 +3,4 @@
 	app.controller('FooterMainCtrl', [function(){
     	this.test = 'Footer content...';
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

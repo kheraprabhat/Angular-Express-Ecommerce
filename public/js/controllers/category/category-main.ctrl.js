@@ -34,4 +34,4 @@
     		vm.getProductPriceRange = data;
     	});
     }]);
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

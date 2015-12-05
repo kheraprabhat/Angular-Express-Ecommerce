@@ -8,4 +8,4 @@
     		vm.selectedProduct = response.data[0];
     	});
     }]);
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

@@ -3,4 +3,4 @@
 	app.controller('CheckoutConfirmationCtrl', [function(){
     	
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

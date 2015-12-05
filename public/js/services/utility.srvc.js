@@ -24,4 +24,4 @@
 
     	return methods;
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

@@ -3,4 +3,4 @@
 	app.controller('HomeMainCtrl', [function(){
     	
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));

@@ -8,7 +8,7 @@
 
                 views: {
                     "main": {
-                        controller: 'TimberlandMainCtrl',
+                        controller: 'MeanappMainCtrl',
                         controllerAs: 'global',
                         templateUrl: 'views/home.html'
                     }
@@ -231,6 +231,6 @@
         }
     ]);
 
-})(angular.module("Timberland", [
+})(angular.module("Meanapp", [
     'ui.router'
 ]));

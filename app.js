@@ -10,7 +10,7 @@ var mongoose = require('mongoose');
 
 var db = mongoose.connection;
 
-mongoose.connect('mongodb://localhost/timberland');
+mongoose.connect('mongodb://localhost/Meanapp');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');

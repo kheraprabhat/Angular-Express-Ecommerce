@@ -3,4 +3,4 @@
 	app.controller('WishListMainCtrl', ['wishListSrvc', function(wishListSrvc){
 		
     }]);    
-})(angular.module("Timberland"));
+})(angular.module("Meanapp"));
