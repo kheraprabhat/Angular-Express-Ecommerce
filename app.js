@@ -1,38 +1,53 @@
+/* load dependancy modules */
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongodb = require('mongodb');
+var dbConfig = require('./config/database');
 var mongoose = require('mongoose');
+
+/* passport module */
+var passport = require('passport');
+var expressSession = require('express-session');
 
 var db = mongoose.connection;
 
-mongoose.connect('mongodb://localhost/Meanapp');
+mongoose.connect(dbConfig.url);
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+/* config routers */
 var categories = require('./routes/categories');
 var products = require('./routes/products');
 
+/* init the Meanapp */
 var app = express();
 
-// view engine setup
+app.use(expressSession({secret: 'mySecretKey'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+/* setup used middlewear, view engine setup*/
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+var auth = function(req, res, next) {
+    if (!req.isAuthenticated()) res.send(401);
+    else next();
+};
+
+require('./routes/auth')(app);
+
 app.use('/categories', categories);
 app.use('/products', products);
 

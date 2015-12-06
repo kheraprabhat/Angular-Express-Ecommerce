@@ -186,7 +186,7 @@
 
                 views: {
                     "main": {
-                        controller: 'AuthenticationLoginCtrl',
+                        controller: 'AuthenticationMainCtrl',
                         controllerAs: 'login',
                         templateUrl: 'views/authentication/login.html'
                     }
@@ -202,7 +202,7 @@
 
                 views: {
                     "main": {
-                        controller: 'AuthenticationSignupCtrl',
+                        controller: 'AuthenticationMainCtrl',
                         controllerAs: 'signup',
                         templateUrl: 'views/authentication/signup.html'
                     }
