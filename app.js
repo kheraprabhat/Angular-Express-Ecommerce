@@ -41,11 +41,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-var auth = function(req, res, next) {
-    if (!req.isAuthenticated()) res.send(401);
-    else next();
-};
-
 require('./routes/auth')(app);
 
 app.use('/categories', categories);

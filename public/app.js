@@ -231,6 +231,24 @@
         }
     ]);
 
+    app.run(['$rootScope', '$location', 'authenticationSrvc',
+        function($rootScope, $location, authenticationSrvc) {
+            console.log('okay');
+            //Client-side security. Server-side framework MUST add it's 
+            //own security as well since client-based security is easily hacked
+            $rootScope.$on("$locationChangeStart", function(event, next, current) {
+                if (next && next.$$route && next.$$route.secure) {
+                    if (!authenticationSrvc.user.isAuthenticated) {
+                        $rootScope.$evalAsync(function() {
+                            authenticationSrvc.redirectToLogin();
+                        });
+                    }
+                }
+            });
+
+        }
+    ]);
+
 })(angular.module("Meanapp", [
     'ui.router'
 ]));
