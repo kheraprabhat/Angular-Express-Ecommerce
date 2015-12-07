@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="Meanapp">
+
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -11,100 +12,102 @@
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/price-range.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-	<link href="css/main.css" rel="stylesheet">
-	<link href="css/responsive.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
 
-	<!-- vendor library files -->
-	<script src="js/jquery.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.scrollUp.min.js"></script>
-	<script src="js/price-range.js"></script>
+    <!-- vendor library files -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/price-range.js"></script>
     <script src="js/jquery.prettyPhoto.js"></script>
     <script src="js/main.js"></script>
-    
-	<!-- angular library files -->
-	<script type="text/javascript" src="vendor/angular/angular.js"></script>
-	<script type="text/javascript" src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
 
-	<!-- modules files -->
-	<script type="text/javascript" src="app.js"></script>
+    <!-- angular library files -->
+    <script type="text/javascript" src="vendor/angular/angular.js"></script>
+    <script type="text/javascript" src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
 
-	<!-- global services files -->
-	<script type="text/javascript" src="js/services/utility.srvc.js"></script>
-	<script type="text/javascript" src="js/services/my-account.srvc.js"></script>
-	<script type="text/javascript" src="js/services/wish-list.srvc.js"></script>
-	<script type="text/javascript" src="js/services/find-store.srvc.js"></script>
-	<script type="text/javascript" src="js/services/gift-cards.srvc.js"></script>
+    <!-- modules files -->
+    <script type="text/javascript" src="app.js"></script>
 
-	<!-- module based services files -->
-	<script type="text/javascript" src="js/services/authentication/authentication.srvc.js"></script>
-	<script type="text/javascript" src="js/services/category/category.srvc.js"></script>
-	<script type="text/javascript" src="js/services/product/product.srvc.js"></script>
-	<script type="text/javascript" src="js/services/cart/cart.srvc.js"></script>
-	<script type="text/javascript" src="js/services/blogs/blogs.srvc.js"></script>
+    <!-- global services files -->
+    <script type="text/javascript" src="js/services/utility.srvc.js"></script>
+    <script type="text/javascript" src="js/services/my-account.srvc.js"></script>
+    <script type="text/javascript" src="js/services/wish-list.srvc.js"></script>
+    <script type="text/javascript" src="js/services/find-store.srvc.js"></script>
+    <script type="text/javascript" src="js/services/gift-cards.srvc.js"></script>
 
-	<script type="text/javascript" src="js/services/checkout/checkout.srvc.js"></script>
-	<script type="text/javascript" src="js/services/checkout/checkout-shipping.srvc.js"></script>
-	<script type="text/javascript" src="js/services/checkout/checkout-payment.srvc.js"></script>
-	<script type="text/javascript" src="js/services/checkout/checkout-review.srvc.js"></script>
-	<script type="text/javascript" src="js/services/checkout/checkout-confirmation.srvc.js"></script>
-	
-	<!-- global controllers files -->
-	<script type="text/javascript" src="js/controllers/meanapp-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/header-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/footer-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/wish-list-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/find-store-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/my-account-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/gift-cards-main.ctrl.js"></script>
+    <!-- module based services files -->
+    <script type="text/javascript" src="js/services/authentication/authentication.srvc.js"></script>
+    <script type="text/javascript" src="js/services/category/category.srvc.js"></script>
+    <script type="text/javascript" src="js/services/product/product.srvc.js"></script>
+    <script type="text/javascript" src="js/services/cart/cart.srvc.js"></script>
+    <script type="text/javascript" src="js/services/blogs/blogs.srvc.js"></script>
 
-	<!-- module based controllers files -->
-	<!-- authentication controllers -->
-	<script type="text/javascript" src="js/controllers/authentication/authentication-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/authentication/authentication-login.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/authentication/authentication-signup.ctrl.js"></script>
+    <script type="text/javascript" src="js/services/checkout/checkout.srvc.js"></script>
+    <script type="text/javascript" src="js/services/checkout/checkout-shipping.srvc.js"></script>
+    <script type="text/javascript" src="js/services/checkout/checkout-payment.srvc.js"></script>
+    <script type="text/javascript" src="js/services/checkout/checkout-review.srvc.js"></script>
+    <script type="text/javascript" src="js/services/checkout/checkout-confirmation.srvc.js"></script>
 
-	<!-- home page controllers -->
-	<script type="text/javascript" src="js/controllers/home/home-main.ctrl.js"></script>
+    <!-- global controllers files -->
+    <script type="text/javascript" src="js/controllers/meanapp-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/header-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/footer-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/wish-list-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/find-store-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/my-account-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/gift-cards-main.ctrl.js"></script>
 
-	<!-- category controllers -->
-	<script type="text/javascript" src="js/controllers/category/category-main.ctrl.js"></script>
+    <!-- module based controllers files -->
+    <!-- authentication controllers -->
+    <script type="text/javascript" src="js/controllers/authentication/authentication-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/authentication/authentication-login.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/authentication/authentication-signup.ctrl.js"></script>
 
-	<!-- product controllers -->
-	<script type="text/javascript" src="js/controllers/product/product-main.ctrl.js"></script>
+    <!-- home page controllers -->
+    <script type="text/javascript" src="js/controllers/home/home-main.ctrl.js"></script>
 
-	<!-- cart controllers -->
-	<script type="text/javascript" src="js/controllers/cart/cart-main.ctrl.js"></script>
+    <!-- category controllers -->
+    <script type="text/javascript" src="js/controllers/category/category-main.ctrl.js"></script>
 
-	<!-- blogs controllers -->
-	<script type="text/javascript" src="js/controllers/blogs/blogs-main.ctrl.js"></script>
+    <!-- product controllers -->
+    <script type="text/javascript" src="js/controllers/product/product-main.ctrl.js"></script>
 
-	<!-- checkout controllers -->
-	<script type="text/javascript" src="js/controllers/checkout/checkout-main.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/checkout/checkout-shipping.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/checkout/checkout-payment.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/checkout/checkout-review.ctrl.js"></script>
-	<script type="text/javascript" src="js/controllers/checkout/checkout-confirmation.ctrl.js"></script>
+    <!-- cart controllers -->
+    <script type="text/javascript" src="js/controllers/cart/cart-main.ctrl.js"></script>
+
+    <!-- blogs controllers -->
+    <script type="text/javascript" src="js/controllers/blogs/blogs-main.ctrl.js"></script>
+
+    <!-- checkout controllers -->
+    <script type="text/javascript" src="js/controllers/checkout/checkout-main.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/checkout/checkout-shipping.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/checkout/checkout-payment.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/checkout/checkout-review.ctrl.js"></script>
+    <script type="text/javascript" src="js/controllers/checkout/checkout-confirmation.ctrl.js"></script>
 </head>
-<body>
-	<!-- header section -->
-	<div ng-controller="HeaderMainCtrl as header" ng-include="'views/header.html'"></div>
 
-	<!-- content section -->
-	<div class="content-container global-body">
-		<div ui-view="main"></div>
-	</div>
-	
-	<!-- footer section -->
-	<div ng-controller="FooterMainCtrl as footer" ng-include="'views/footer.html'"></div>
+<body>
+    <!-- header section -->
+    <div ng-controller="HeaderMainCtrl as header" ng-include="'views/header.html'"></div>
+
+    <!-- content section -->
+    <div class="content-container global-body">
+        <div ui-view="main"></div>
+    </div>
+
+    <!-- footer section -->
+    <div ng-controller="FooterMainCtrl as footer" ng-include="'views/footer.html'"></div>
 </body>
+
 </html>
