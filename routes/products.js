@@ -17,19 +17,23 @@ router.get('/', function(request, response, next) {
 
 /* get product count based on selected product field name */
 router.get('/getProductRange', function(request, response, next) {
-	var urlParts = url.parse(request.url, true);
+    var urlParts = url.parse(request.url, true);
     var query = urlParts.query;
-	Products.getProductCount(query, function(error, result) {
-		var products = JSON.parse(JSON.stringify(result));
+    Products.getProductCount(query, function(error, result) {
+        var products = JSON.parse(JSON.stringify(result));
 
-		var min = Math.min.apply(Math, products.map(function(prod){ return parseFloat(prod.price)}));
-		var max = Math.max.apply(Math, products.map(function(prod){ return parseFloat(prod.price)}));
+        var min = Math.min.apply(Math, products.map(function(prod) {
+            return parseFloat(prod.price)
+        }));
+        var max = Math.max.apply(Math, products.map(function(prod) {
+            return parseFloat(prod.price)
+        }));
 
-		response.json({
-			min: min,
-			max: max
-		});
-	});    
+        response.json({
+            min: min,
+            max: max
+        });
+    });
 });
 
 /* get product count based on selected product field name */
@@ -39,12 +43,15 @@ router.get('/getProductCount', function(request, response, next) {
 
     Products.getProductCount(query, function(error, result) {
         var productFields = {
-            totalProductFieldsCombined: 0,
-            fieldNameDetails: []
-        }, products = JSON.parse(JSON.stringify(result));
+                totalProductFieldsCombined: 0,
+                fieldNameDetails: []
+            },
+            products = JSON.parse(JSON.stringify(result));
 
         products.forEach(function(elem, index) {
-            if (productFields.fieldNameDetails.map(function(fieldName) { return fieldName[query.fieldName]; }).indexOf(elem[query.fieldName]) === -1) {
+            if (productFields.fieldNameDetails.map(function(fieldName) {
+                    return fieldName[query.fieldName];
+                }).indexOf(elem[query.fieldName]) === -1) {
                 var object = {};
                 object[query.fieldName] = elem[query.fieldName];
                 object.count = 0;
@@ -53,7 +60,9 @@ router.get('/getProductCount', function(request, response, next) {
         });
 
         products.forEach(function(elem, index) {
-            var index = productFields.fieldNameDetails.map(function(selected) { return selected[query.fieldName]; }).indexOf(elem[query.fieldName]);
+            var index = productFields.fieldNameDetails.map(function(selected) {
+                return selected[query.fieldName];
+            }).indexOf(elem[query.fieldName]);
 
             productFields.totalProductFieldsCombined++;
 
@@ -68,17 +77,17 @@ router.get('/getProductCount', function(request, response, next) {
 
 /* to access all the products on category page */
 router.get('/:categoryId', function(request, response, next) {
-	/* if all products requested */
-	if(request.params.categoryId.toLowerCase() === 'all-products'){
-		Products.getProducts(function(error, result) {
-	        response.json(result);
-	    });
-	} else {
-		/* if resquest has valid category id */
-		Products.getProductsByCategory(request.params.categoryId, function(error, result) {
-	        response.json(result);
-	    });
-	}
+    /* if all products requested */
+    if (request.params.categoryId.toLowerCase() === 'all-products') {
+        Products.getProducts(function(error, result) {
+            response.json(result);
+        });
+    } else {
+        /* if resquest has valid category id */
+        Products.getProductsByCategory(request.params.categoryId, function(error, result) {
+            response.json(result);
+        });
+    }
 });
 
 router.get('/selected/:categoryId/:productId', function(request, response, next) {

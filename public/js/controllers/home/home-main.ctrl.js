@@ -1,6 +1,6 @@
-(function (app) {
-	'use strict';
-	app.controller('HomeMainCtrl', [function(){
-    	
-    }]);    
+(function(app) {
+    'use strict';
+    app.controller('HomeMainCtrl', [function() {
+
+    }]);
 })(angular.module("Meanapp"));

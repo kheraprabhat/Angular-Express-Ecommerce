@@ -1,6 +1,6 @@
-(function (app) {
-	'use strict';
-	app.controller('CheckoutPaymentCtrl', [function(){
-    	
-    }]);    
+(function(app) {
+    'use strict';
+    app.controller('CheckoutPaymentCtrl', [function() {
+
+    }]);
 })(angular.module("Meanapp"));

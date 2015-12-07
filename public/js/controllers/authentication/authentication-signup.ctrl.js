@@ -1,6 +1,6 @@
-(function (app) {
-	'use strict';
-	app.controller('AuthenticationSignupCtrl', ['authenticationSrvc', function(authenticationSrvc){
-		
-	}]);    
+(function(app) {
+    'use strict';
+    app.controller('AuthenticationSignupCtrl', ['authenticationSrvc', function(authenticationSrvc) {
+
+    }]);
 })(angular.module("Meanapp"));

@@ -1,5 +1,5 @@
-(function (app) {
-    app.controller('SearchMainCtrl', ['$stateParams', 'searchSrvc', function(stateParams, searchSrvc){
-    	
+(function(app) {
+    app.controller('SearchMainCtrl', ['$stateParams', 'searchSrvc', function(stateParams, searchSrvc) {
+
     }]);
 })(angular.module("Meanapp"));
