@@ -32,6 +32,7 @@
         vm.logout = function() {
             http.get("/auth/logout").success(function() {
                 vm.loggeduser = {};
+                authenticationSrvc.changeAuthStatus('logout');
                 location.path("/signin");
             }).error(function() {
                 vm.alert = "Logout failed";

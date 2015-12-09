@@ -1,5 +1,17 @@
 ;(function(app) {
     "use strict";
+
+    function onlyLoggedIn($location,$q,authenticationSrvc) {
+        var deferred = $q.defer();
+        if (authenticationSrvc.isLogin()) {
+            deferred.resolve();
+        } else {
+            console.log('okay');
+            $location.url('/login');
+        }
+        return deferred.promise;
+    }
+
     app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function($stateProvider, $urlRouterProvider, $locationProvider) {
             $urlRouterProvider.otherwise('/');
@@ -12,6 +24,10 @@
                         controllerAs: 'global',
                         templateUrl: 'views/home.html'
                     }
+                },
+
+                resolve: {
+                    loggedIn: onlyLoggedIn
                 },
 
                 data: {
@@ -30,6 +46,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Product Category'
                 }
@@ -46,6 +64,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Product Items'
                 }
@@ -61,6 +81,8 @@
                         templateUrl: 'views/gift-cards.html'
                     }
                 },
+
+                resolve: { loggedIn: onlyLoggedIn },
 
                 data: {
                     pageTitle: 'Gift Cards'
@@ -94,6 +116,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Wish list'
                 }
@@ -109,6 +133,8 @@
                         templateUrl: 'views/my-account.html'
                     }
                 },
+
+                resolve: { loggedIn: onlyLoggedIn },
 
                 data: {
                     pageTitle: 'My Account'
@@ -126,6 +152,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Cart items'
                 }
@@ -142,6 +170,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Checkout'
                 }
@@ -157,6 +187,8 @@
                         templateUrl: 'views/checkout/shipping.html'
                     }
                 },
+
+                resolve: { loggedIn: onlyLoggedIn },
 
                 data: {
                     pageTitle: 'Checkout'
@@ -176,6 +208,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Checkout'
                 }
@@ -191,6 +225,8 @@
                         templateUrl: 'views/authentication/login.html'
                     }
                 },
+
+                resolve: { loggedIn: onlyLoggedIn },
 
                 data: {
                     pageTitle: 'Login'
@@ -208,6 +244,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Register'
                 }
@@ -224,6 +262,8 @@
                     }
                 },
 
+                resolve: { loggedIn: onlyLoggedIn },
+
                 data: {
                     pageTitle: 'Blogs'
                 }
@@ -233,10 +273,9 @@
 
     app.run(['$rootScope', '$location', 'authenticationSrvc',
         function($rootScope, $location, authenticationSrvc) {
-            console.log('okay');
             //Client-side security. Server-side framework MUST add it's 
             //own security as well since client-based security is easily hacked
-            $rootScope.$on("$locationChangeStart", function(event, next, current) {
+            /*$rootScope.$on("$locationChangeStart", function(event, next, current) {
                 if (next && next.$$route && next.$$route.secure) {
                     if (!authenticationSrvc.user.isAuthenticated) {
                         $rootScope.$evalAsync(function() {
@@ -244,7 +283,7 @@
                         });
                     }
                 }
-            });
+            });*/
 
         }
     ]);
