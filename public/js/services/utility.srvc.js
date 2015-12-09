@@ -5,12 +5,16 @@
             getData: function(url) {
                 return http.get(url).then(function(result) {
                     return result.data;
+                }, function(error){
+                    return error;
                 });
             },
 
             postData: function(url) {
-                return http.get(url).then(function(result) {
+                return http.post(url).then(function(result) {
                     return result.data;
+                }, function(error){
+                    return error;
                 });
             },
 

@@ -64,7 +64,13 @@ module.exports = function(app) {
     });
 
     app.get("/auth/currentuser", isAuthenticated, function(req, res) {
-        res.json(req.user);
+        var details = {
+            email: req.user.email,
+            lastname: req.user.lastname,
+            firstname: req.user.firstname,
+            username: req.user.username
+        };
+        res.json(details);
     });
 
     app.post("/auth/signup", function(req, res) {

@@ -9,7 +9,6 @@
                 return methods.user.isAuthenticated;
             },
             changeAuthStatus: function(status) {
-                console.log('test');
                 methods.user.isAuthenticated = status === 'login';
             },
             redirectToLogin: function() {

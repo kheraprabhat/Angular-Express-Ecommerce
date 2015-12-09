@@ -35,15 +35,16 @@
 					
 				</div>
 				<div class="col-sm-8">
-					<div class="shop-menu pull-right">{{header.isAuthenticated}}
+					<div class="shop-menu pull-right">
 						<ul class="nav navbar-nav">
-							<li><a href="#/myaccount"><i class="fa fa-user"></i> Account</a></li>
 							<li><a href="#/wishlist"><i class="fa fa-star"></i> Wishlist</a></li>
 							<li><a href="#/findstore"><i class="fa fa-crosshairs"></i> Find a Store</a></li>
 							<li><a href="#/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 							<li><a href="#/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-							<li><a href="#/login"><i class="fa fa-lock"></i> Login</a></li>
 							<li><a href="#/blogs"><i class="fa fa-lock"></i> Blogs</a></li>
+							<li ng-if="header.isAuthenticated"><a href="#/myaccount"><i class="fa fa-user"></i> Account</a></li>
+							<li ng-if="!header.isAuthenticated"><a href="#/login"><i class="fa fa-lock"></i> Login</a></li>
+							<li ng-if="header.isAuthenticated"><a ng-click="header.logout()" href><i class="fa fa-lock"></i> Logout</a></li>
 						</ul>
 					</div>
 				</div>
