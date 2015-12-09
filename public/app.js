@@ -1,6 +1,5 @@
-;(function(app) {
+(function(app) {
     "use strict";
-
     app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
         function($stateProvider, $urlRouterProvider, $locationProvider) {
             $urlRouterProvider.otherwise('/');
@@ -27,9 +26,43 @@
                     "main": {
                         controller: 'CategoryMainCtrl',
                         controllerAs: 'category',
-                        templateUrl: 'views/category/category.html'
+                        templateUrl: 'views/category/category.html',
+                        resolve: {
+                            selectedCategoryProducts: function(utility, $stateParams) {
+                                return utility.getData('/products/' + $stateParams.categoryName);
+                            },
+
+                            getProductCount: function(utility, $stateParams) {
+                                var queryString = utility.queryStingFormat({
+                                    categoryId: $stateParams.categoryName,
+                                    fieldName: 'brand'
+                                });
+
+                                return utility.getData('/products/getProductCount' + queryString);
+                            },
+
+                            getProductTypeCount: function(utility, $stateParams) {
+                                var queryString = utility.queryStingFormat({
+                                    categoryId: $stateParams.categoryName,
+                                    fieldName: 'type'
+                                });
+
+                                return utility.getData('/products/getProductCount' + queryString);
+                            },
+
+                            getProductRange: function(utility, $stateParams) {
+                                var queryString = utility.queryStingFormat({
+                                    categoryId: $stateParams.categoryName,
+                                    fieldName: 'price'
+                                });
+
+                                return utility.getData('/products/getProductRange' + queryString);
+                            }
+                        }
                     }
                 },
+
+
 
                 data: {
                     pageTitle: 'Product Category'
@@ -43,11 +76,15 @@
                     "main": {
                         controller: 'ProductMainCtrl',
                         controllerAs: 'product',
-                        templateUrl: 'views/product/product.html'
+                        templateUrl: 'views/product/product.html',
+                        resolve: {
+                            selectedProduct: function(utility, $stateParams){
+                                var serviceUrl = '/products/selected/' + $stateParams.categoryName + '/' + $stateParams.productId;
+                                return utility.getData(serviceUrl);
+                            }
+                        }
                     }
                 },
-
-                
 
                 data: {
                     pageTitle: 'Product Items'
@@ -65,7 +102,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Gift Cards'
@@ -99,7 +136,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Wish list'
@@ -117,7 +154,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'My Account'
@@ -135,7 +172,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Cart items'
@@ -153,13 +190,13 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Checkout'
                 }
             })
-            
+
             .state('/checkout/shipping', {
                 url: '/checkout/shipping',
 
@@ -171,7 +208,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Checkout'
@@ -191,7 +228,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Checkout'
@@ -209,7 +246,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Login'
@@ -227,7 +264,7 @@
                     }
                 },
 
-                
+
 
                 data: {
                     pageTitle: 'Register'
@@ -254,8 +291,8 @@
 
     app.run(['$rootScope', '$location', 'utility', 'authenticationSrvc',
         function($rootScope, $location, utility, authenticationSrvc) {
-            utility.getData('/auth/currentuser').then(function(data){
-                if(!data.status){
+            utility.getData('/auth/currentuser').then(function(data) {
+                if (!data.status) {
                     authenticationSrvc.changeAuthStatus('login');
                 }
             });

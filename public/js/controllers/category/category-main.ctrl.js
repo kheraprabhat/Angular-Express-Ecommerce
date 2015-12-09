@@ -1,10 +1,8 @@
 (function(app) {
     'use strict';
-    app.controller('CategoryMainCtrl', ['$stateParams', 'utility', 'categorySrvc',
-        function(stateParams, utility, categorySrvc) {
-            var vm = this,
-                queryString;
-
+    app.controller('CategoryMainCtrl', ['$stateParams', 'utility', 'categorySrvc', 'selectedCategoryProducts', 'getProductCount', 'getProductTypeCount', 'getProductRange',
+        function(stateParams, utility, categorySrvc, selectedCategoryProducts, getProductCount, getProductTypeCount, getProductRange) {
+            var vm = this;
             vm.categoryName = stateParams.categoryName;
             /* declear scope variable for view */
             vm.selectedCategoryProducts = [];
@@ -13,36 +11,16 @@
             vm.getProductPriceRange = [];
 
             /* get all products for selected category */
-            utility.getData('/products/' + vm.categoryName).then(function(data) {
-                vm.selectedCategoryProducts = data;
-            });
+            vm.selectedCategoryProducts = selectedCategoryProducts;
 
             /* get All Type Products Length */
-            queryString = utility.queryStingFormat({
-                categoryId: vm.categoryName,
-                fieldName: 'brand'
-            });
-            utility.getData('/products/getProductCount' + queryString).then(function(data) {
-                vm.totalBrandsAvailableproducts = data;
-            });
+            vm.totalBrandsAvailableproducts = getProductCount;
 
             /* get product type available count */
-            queryString = utility.queryStingFormat({
-                categoryId: vm.categoryName,
-                fieldName: 'type'
-            });
-            utility.getData('/products/getProductCount' + queryString).then(function(data) {
-                vm.totalProductTypeAvailableproducts = data;
-            });
+            vm.totalProductTypeAvailableproducts = getProductTypeCount;
 
             /* get product price range available [min to max] */
-            queryString = utility.queryStingFormat({
-                categoryId: vm.categoryName,
-                fieldName: 'price'
-            });
-            utility.getData('/products/getProductRange' + queryString).then(function(data) {
-                vm.getProductPriceRange = data;
-            });
+            vm.getProductPriceRange = getProductRange;
         }
     ]);
 })(angular.module("Meanapp"));

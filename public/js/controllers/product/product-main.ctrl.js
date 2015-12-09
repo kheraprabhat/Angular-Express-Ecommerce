@@ -1,14 +1,13 @@
 (function(app) {
     'use strict';
-    app.controller('ProductMainCtrl', ['$stateParams', 'utility', function(stateParams, utility) {
-        var vm = this,
-            serviceUrl;
-        vm.selectedProduct = [];
-        vm.categoryName = stateParams.categoryName;
+    app.controller('ProductMainCtrl', ['$stateParams', 'utility', 'selectedProduct',
+        function(stateParams, utility, selectedProduct) {
+            var vm = this;
+            vm.selectedProduct = [];
+            vm.categoryName = stateParams.categoryName;
 
-        serviceUrl = '/products/selected/' + stateParams.categoryName + '/' + stateParams.productId;
-        utility.getData(serviceUrl).then(function(data) {
-            vm.selectedProduct = data[0];
-        });
-    }]);
+            /* get selected product from back-end */
+            vm.selectedProduct = selectedProduct[0];
+        }
+    ]);
 })(angular.module("Meanapp"));
