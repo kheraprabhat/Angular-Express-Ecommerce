@@ -46,13 +46,24 @@ module.exports.getProductRange = function(query, defaultCallback) {
     Products.find(query, defaultCallback);
 };
 
-/* :::::::::: product filter in sub-category :::::::::::: */
 module.exports.productFilter = function(query, defaultCallback) {
     var finalQuery = {};
-    finalQuery[query.filterKeyName] = query.filterKeyValue;
-
     if(query.categoryId !== 'all-products'){
         finalQuery.categoryId = ObjectID(query.categoryId);
+        finalQuery[query.filterKeyName] = query.filterKeyValue;
+    } else {
+        finalQuery[query.filterKeyName] = query.filterKeyValue;
+    }    
+    Products.find(finalQuery, defaultCallback);
+};
+
+module.exports.productFilterOptions = function(query, defaultCallback) {
+    var finalQuery = {};
+    if(query.categoryId !== 'all-products'){
+        finalQuery.categoryId = ObjectID(query.categoryId);
+        finalQuery[query.filterKeyName] = query.filterKeyValue;
+    } else {
+        finalQuery[query.filterKeyName] = query.filterKeyValue;
     }
     
     Products.find(finalQuery, defaultCallback);

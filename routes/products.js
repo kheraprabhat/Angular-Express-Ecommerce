@@ -16,9 +16,28 @@ router.get('/', function(request, response, next) {
 });
 
 /* get product count based on selected product field name */
+router.get('/productFilterOptions', function(request, response, next) {
+    var query = utility.getQueryString(request);
+    Products.productFilterOptions(query, function(error, result) {
+        var products = utility.toJson(result);
+        var productColors = utility.combinedProductFieldList(products, query.filterType);
+        var allColors = utility.removeDuplicate(productColors, 'text');
+        response.json(allColors);
+    });
+});
+
+/* get product count based on selected product field name */
+router.get('/productFilter', function(request, response, next) {
+    var query = utility.getQueryString(request);
+    Products.productFilter(query, function(error, result) {
+        var products = JSON.parse(JSON.stringify(result));
+        response.json(products);
+    });
+});
+
+/* get product count based on selected product field name */
 router.get('/getProductRange', function(request, response, next) {
-    var urlParts = url.parse(request.url, true);
-    var query = urlParts.query;
+    var query = utility.getQueryString(request);
     Products.getProductCount(query, function(error, result) {
         var products = JSON.parse(JSON.stringify(result));
 
@@ -38,8 +57,7 @@ router.get('/getProductRange', function(request, response, next) {
 
 /* get product count based on selected product field name */
 router.get('/getProductCount', function(request, response, next) {
-    var urlParts = url.parse(request.url, true);
-    var query = urlParts.query;
+    var query = utility.getQueryString(request);
 
     Products.getProductCount(query, function(error, result) {
         var productFields = {
@@ -60,7 +78,7 @@ router.get('/getProductCount', function(request, response, next) {
         });
 
         products.forEach(function(elem, index) {
-            var index = productFields.fieldNameDetails.map(function(selected) {
+            index = productFields.fieldNameDetails.map(function(selected) {
                 return selected[query.fieldName];
             }).indexOf(elem[query.fieldName]);
 
@@ -93,17 +111,6 @@ router.get('/:categoryId', function(request, response, next) {
 router.get('/selected/:categoryId/:productId', function(request, response, next) {
     Products.getSelectedProductBycategoryId(request.params.categoryId, request.params.productId, function(error, result) {
         response.json(result);
-    });
-});
-
-
-/* :::::::::: product filter in sub-category :::::::::::: */
-router.get('/productFilter', function(request, response, next) {
-    var urlParts = url.parse(request.url, true);
-    var query = urlParts.query;
-    Products.productFilter(query, function(error, result) {
-        var products = JSON.parse(JSON.stringify(result));        
-        response.json(products);
     });
 });
 
