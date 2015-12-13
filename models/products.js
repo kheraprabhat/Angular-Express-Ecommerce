@@ -45,3 +45,15 @@ module.exports.getProductRange = function(query, defaultCallback) {
     };
     Products.find(query, defaultCallback);
 };
+
+/* :::::::::: product filter in sub-category :::::::::::: */
+module.exports.productFilter = function(query, defaultCallback) {
+    var finalQuery = {};
+    finalQuery[query.filterKeyName] = query.filterKeyValue;
+
+    if(query.categoryId !== 'all-products'){
+        finalQuery.categoryId = ObjectID(query.categoryId);
+    }
+    
+    Products.find(finalQuery, defaultCallback);
+};

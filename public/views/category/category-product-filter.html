@@ -3,29 +3,29 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="left-sidebar">
-					<div ng-if="category.totalProductTypeAvailableproducts.totalProductFieldsCombined > 0" class="brands_products"><!--brands_products-->
+					<!-- <div ng-if="category.totalProductTypeAvailableproducts.totalProductFieldsCombined > 0" class="brands_products">
 						<h2> Product Type ({{category.totalProductTypeAvailableproducts.totalProductFieldsCombined}})</h2>
 						<div class="brands-name">
 							<ul class="nav nav-pills nav-stacked">
 								<li ng-repeat="details in category.totalProductTypeAvailableproducts.fieldNameDetails">
-									<a href="#/shop/{{category.categoryName}}/type/{{details.type}}"><span class="pull-right">({{details.count}})</span>{{details.type}}</a>
+									<a ng-click="category.productFilter(details.type)"><span class="pull-right">({{details.count}})</span>{{details.type}}</a>
 								</li>
 							</ul>
 						</div>
-					</div><!--/brands_products-->
+					</div>
 					<div class="clearfix"></div>
-					<div style="margin-top:24px;" ng-if="category.totalBrandsAvailableproducts.totalProductFieldsCombined > 0" class="brands_products"><!--brands_products-->
+					<div style="margin-top:24px;" ng-if="category.totalBrandsAvailableproducts.totalProductFieldsCombined > 0" class="brands_products">
 						<h2>Brands ({{category.totalBrandsAvailableproducts.totalProductFieldsCombined}})</h2>
 						<div class="brands-name">
 							<ul class="nav nav-pills nav-stacked">
 								<li ng-repeat="details in category.totalBrandsAvailableproducts.fieldNameDetails">
-									<a href="#/shop/{{category.categoryName}}/brand/{{details.brand}}"><span class="pull-right">({{details.count}})</span>{{details.brand}}</a>
+									<a ng-click="category.productFilter(details.brand)"><span class="pull-right">({{details.count}})</span>{{details.brand}}</a>
 								</li>
 							</ul>
 						</div>
-					</div><!--/brands_products-->
+					</div>
 					
-					<div ng-if="category.getProductPriceRange.max" class="price-range"><!--price-range-->
+					<div ng-if="category.getProductPriceRange.max" class="price-range">
 						<h2>Price Range</h2>
 						<div class="well text-center">
 							 <div>
@@ -33,7 +33,7 @@
 							 	<b class="pull-right">$ {{category.getProductPriceRange.max}}</b>
 							 </div>
 						</div>
-					</div><!--/price-range-->
+					</div> -->
 					
 				</div>
 			</div>
@@ -41,22 +41,22 @@
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
 					<h2 class="title text-center">Items...</h2>
-					<div class="col-sm-4" ng-repeat="product in category.selectedCategoryProducts track by $index">
+					<div class="col-sm-4" ng-repeat="product in productFilter.filterProducts track by $index">
 						<div class="product-image-wrapper">
 							<div class="single-products">
-									<div class="productinfo text-center">
-										<img src="{{product.images.normal[0]}}" alt="" />
+								<div class="productinfo text-center">
+									<img src="{{product.images.normal[0]}}" alt="" />
+									<h2>${{product.price}}</h2>
+									<p>{{product.name}}</p>
+									<a href="#/shop/{{productFilter.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+								</div>
+								<div class="product-overlay">
+									<div class="overlay-content">
 										<h2>${{product.price}}</h2>
 										<p>{{product.name}}</p>
-										<a href="#/shop/{{category.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+										<a href="#/shop/{{productFilter.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 									</div>
-									<div class="product-overlay">
-										<div class="overlay-content">
-											<h2>${{product.price}}</h2>
-											<p>{{product.name}}</p>
-											<a href="#/shop/{{category.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-										</div>
-									</div>
+								</div>
 							</div>
 							<div class="choose">
 								<ul class="nav nav-pills nav-justified">

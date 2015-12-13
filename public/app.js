@@ -69,6 +69,33 @@
                 }
             })
 
+            .state('/shop/:categoryName/:filterKeyName/:filterKeyValue', {
+                url: '/shop/:categoryName/:filterKeyName/:filterKeyValue',
+
+                views: {
+                    "main": {
+                        controller: 'CategoryProductFilterCtrl',
+                        controllerAs: 'productFilter',
+                        templateUrl: 'views/category/category-product-filter.html',
+                        resolve: {
+                            getFilteredProducts: function(utility, $stateParams) {
+                                var queryString = utility.queryStingFormat({
+                                    categoryId: $stateParams.categoryName,
+                                    filterKeyName: $stateParams.filterKeyName,
+                                    filterKeyValue: $stateParams.filterKeyValue
+                                });
+
+                                return utility.getData('/products/productFilter' + queryString);
+                            }
+                        }
+                    }
+                },
+
+                data: {
+                    pageTitle: 'Product Category'
+                }
+            })
+
             .state('/shop/:categoryName/:productId', {
                 url: '/shop/:categoryName/:productId',
 

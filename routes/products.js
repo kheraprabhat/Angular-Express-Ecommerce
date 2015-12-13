@@ -23,10 +23,10 @@ router.get('/getProductRange', function(request, response, next) {
         var products = JSON.parse(JSON.stringify(result));
 
         var min = Math.min.apply(Math, products.map(function(prod) {
-            return parseFloat(prod.price)
+            return parseFloat(prod.price);
         }));
         var max = Math.max.apply(Math, products.map(function(prod) {
-            return parseFloat(prod.price)
+            return parseFloat(prod.price);
         }));
 
         response.json({
@@ -93,6 +93,17 @@ router.get('/:categoryId', function(request, response, next) {
 router.get('/selected/:categoryId/:productId', function(request, response, next) {
     Products.getSelectedProductBycategoryId(request.params.categoryId, request.params.productId, function(error, result) {
         response.json(result);
+    });
+});
+
+
+/* :::::::::: product filter in sub-category :::::::::::: */
+router.get('/productFilter', function(request, response, next) {
+    var urlParts = url.parse(request.url, true);
+    var query = urlParts.query;
+    Products.productFilter(query, function(error, result) {
+        var products = JSON.parse(JSON.stringify(result));        
+        response.json(products);
     });
 });
 
