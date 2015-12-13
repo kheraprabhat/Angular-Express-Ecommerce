@@ -12,20 +12,38 @@
 								</li>
 							</ul>
 						</div>
-					</div>
+					</div>-->
 					<div class="clearfix"></div>
-					<div style="margin-top:24px;" ng-if="category.totalBrandsAvailableproducts.totalProductFieldsCombined > 0" class="brands_products">
-						<h2>Brands ({{category.totalBrandsAvailableproducts.totalProductFieldsCombined}})</h2>
-						<div class="brands-name">
-							<ul class="nav nav-pills nav-stacked">
-								<li ng-repeat="details in category.totalBrandsAvailableproducts.fieldNameDetails">
-									<a ng-click="category.productFilter(details.brand)"><span class="pull-right">({{details.count}})</span>{{details.brand}}</a>
-								</li>
-							</ul>
-						</div>
+					<div style="margin-top:24px;" class="brands_products">
+						<h2>Select Color</h2>
+						<select>
+							<option value="{{$index}}" ng-repeat="details in productFilter.filterProductsColors">
+								{{details.text}}
+							</option>
+						</select>
+					</div>
+
+					<div class="clearfix"></div>
+					<div style="margin-top:24px;" class="brands_products">
+						<h2>Select Size</h2>
+						<select>
+							<option value="{{$index}}" ng-repeat="details in productFilter.filterProductsSize">
+								{{details.text}}
+							</option>
+						</select>
+					</div>
+
+					<div class="clearfix"></div>
+					<div style="margin-top:24px;" class="brands_products">
+						<h2>Select Price Range</h2>
+						<select>
+							<option value="0-50">$0 - $50</option>
+							<option value="50-100">$50 - $100</option>
+							<option value="100-99999999">$100 and Above</option>
+						</select>
 					</div>
 					
-					<div ng-if="category.getProductPriceRange.max" class="price-range">
+					<!-- <div ng-if="category.getProductPriceRange.max" class="price-range">
 						<h2>Price Range</h2>
 						<div class="well text-center">
 							 <div>
@@ -45,17 +63,12 @@
 						<div class="product-image-wrapper">
 							<div class="single-products">
 								<div class="productinfo text-center">
-									<img src="{{product.images.normal[0]}}" alt="" />
+									<a href="#/shop/{{productFilter.categoryName}}/{{product._id}}">
+										<img src="{{product.images.normal[0]}}" alt="" />
+									</a>
 									<h2>${{product.price}}</h2>
-									<p>{{product.name}}</p>
+									<p><a href="#/shop/{{productFilter.categoryName}}/{{product._id}}">{{product.name}}</a></p>
 									<a href="#/shop/{{productFilter.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-								</div>
-								<div class="product-overlay">
-									<div class="overlay-content">
-										<h2>${{product.price}}</h2>
-										<p>{{product.name}}</p>
-										<a href="#/shop/{{productFilter.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-									</div>
 								</div>
 							</div>
 							<div class="choose">

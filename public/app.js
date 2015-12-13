@@ -86,6 +86,28 @@
                                 });
 
                                 return utility.getData('/products/productFilter' + queryString);
+                            },
+
+                            getFilteredProductsColor: function(utility, $stateParams) {
+                                var queryString = utility.queryStingFormat({
+                                    categoryId: $stateParams.categoryName,
+                                    filterKeyName: $stateParams.filterKeyName,
+                                    filterKeyValue: $stateParams.filterKeyValue,
+                                    filterType: 'color'
+                                });
+
+                                return utility.getData('/products/productFilterOptions' + queryString);
+                            },
+
+                            getFilteredProductsSize: function(utility, $stateParams) {
+                                var queryString = utility.queryStingFormat({
+                                    categoryId: $stateParams.categoryName,
+                                    filterKeyName: $stateParams.filterKeyName,
+                                    filterKeyValue: $stateParams.filterKeyValue,
+                                    filterType: 'size'
+                                });
+
+                                return utility.getData('/products/productFilterOptions' + queryString);
                             }
                         }
                     }
