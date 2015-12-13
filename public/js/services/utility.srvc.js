@@ -1,6 +1,6 @@
 (function(app) {
     'use strict';
-    app.factory('utility', ['$http', function(http) {
+    app.factory('utility', ['$http', 'CONSTANT_COLORS', function(http, CONSTANT_COLORS) {
         var methods = {
             getData: function(url) {
                 return http.get(url).then(function(result) {
@@ -23,6 +23,12 @@
                     array.push(property + '=' + encodeURIComponent(object[property]));
                     return array;
                 }, []).join('&');
+            },
+
+            getColorCode: function(colorName){
+                return CONSTANT_COLORS.filter(function(color){
+                    return color.name === colorName;
+                })[0];
             }
         };
 

@@ -4,22 +4,29 @@
         '$stateParams',
         'utility',
         'categorySrvc',
-        'getFilteredProducts',
-        'getFilteredProductsColor',
-        'getFilteredProductsSize',
+        'filteredProducts',
+        'productColors',
+        'productSize',
         function(
             stateParams,
             utility,
             categorySrvc,
-            getFilteredProducts,
-            getFilteredProductsColor,
-            getFilteredProductsSize
+            filteredProducts,
+            productColors,
+            productSize
         ) {
             var vm = this;
             vm.categoryName = stateParams.categoryName;
-            vm.filterProducts = getFilteredProducts;
-            vm.filterProductsColors = getFilteredProductsColor;
-            vm.filterProductsSize = getFilteredProductsSize
+            vm.filterProducts = filteredProducts;
+            vm.filterProductsColors = productColors;
+            vm.filterProductsSize = productSize
+
+            vm.changedProductsSize = function(){
+                categorySrvc.innerFilter(stateParams, {
+                    name: 'size',
+                    value: vm.selectedProductsSize
+                });
+            };
         }
     ]);
 })(angular.module("Meanapp"));

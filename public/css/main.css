@@ -2521,4 +2521,16 @@ h2.title {
   color: #FE980F;
 }
 
+.btn-product-colors {
+    height: 50px;
+    margin: 10px 5px 9px 9px;
+    width: 50px;
+}
 
+.btn-product-colors.selected {
+  border: 1px solid green;
+}
+
+.brands-name.no-pad {
+  padding: 0px;
+}

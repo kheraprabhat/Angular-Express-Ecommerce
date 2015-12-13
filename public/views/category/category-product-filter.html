@@ -16,18 +16,16 @@
 					<div class="clearfix"></div>
 					<div style="margin-top:24px;" class="brands_products">
 						<h2>Select Color</h2>
-						<select>
-							<option value="{{$index}}" ng-repeat="details in productFilter.filterProductsColors">
-								{{details.text}}
-							</option>
-						</select>
+						<div class="brands-name no-pad">
+							<button class="btn btn-product-colors" ng-repeat="details in productFilter.filterProductsColors" style="background: {{details.text}}">&nbsp;</button>
+						</div>
 					</div>
 
 					<div class="clearfix"></div>
 					<div style="margin-top:24px;" class="brands_products">
 						<h2>Select Size</h2>
-						<select>
-							<option value="{{$index}}" ng-repeat="details in productFilter.filterProductsSize">
+						<select ng-change="productFilter.changedProductsSize()" ng-model="productFilter.selectedProductsSize">
+							<option value="{{details.text}}" ng-selected="details.text === 'Select Size'" ng-repeat="details in productFilter.filterProductsSize">
 								{{details.text}}
 							</option>
 						</select>

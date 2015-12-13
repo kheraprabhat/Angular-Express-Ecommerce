@@ -39,7 +39,7 @@ router.get('/productFilter', function(request, response, next) {
 router.get('/getProductRange', function(request, response, next) {
     var query = utility.getQueryString(request);
     Products.getProductCount(query, function(error, result) {
-        var products = JSON.parse(JSON.stringify(result));
+        var products = utility.toJson(result);
 
         var min = Math.min.apply(Math, products.map(function(prod) {
             return parseFloat(prod.price);

@@ -89,7 +89,7 @@ var test = {
             var text = $(this).attr("data-attribute-value");
             var value = elem;
             array.push({
-                text: text,
+                text: ["Almond","Apricot", "Aquamarine", "Blue", "Brick Red", "Burnt Sienna"][Math.floor(Math.random() * ["Almond","Apricot", "Aquamarine", "Blue", "Brick Red", "Burnt Sienna"].length)],
                 value: index
             });
         });

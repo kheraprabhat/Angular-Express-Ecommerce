@@ -1,7 +1,22 @@
 (function(app) {
     'use strict';
-    app.controller('CategoryMainCtrl', ['$stateParams', 'utility', 'categorySrvc', 'selectedCategoryProducts', 'getProductCount', 'getProductTypeCount', 'getProductRange',
-        function(stateParams, utility, categorySrvc, selectedCategoryProducts, getProductCount, getProductTypeCount, getProductRange) {
+    app.controller('CategoryMainCtrl', [
+        '$stateParams',
+        'utility',
+        'categorySrvc',
+        'products',
+        'productLength',
+        'productTypeLength',
+        'productRange',
+        function(
+            stateParams,
+            utility,
+            categorySrvc,
+            products,
+            productLength,
+            productTypeLength,
+            productRange
+        ) {
             var vm = this;
             vm.categoryName = stateParams.categoryName;
             /* declear scope variable for view */
@@ -11,16 +26,16 @@
             vm.getProductPriceRange = [];
 
             /* get all products for selected category */
-            vm.selectedCategoryProducts = selectedCategoryProducts;
+            vm.selectedCategoryProducts = products;
 
             /* get All Type Products Length */
-            vm.totalBrandsAvailableproducts = getProductCount;
+            vm.totalBrandsAvailableproducts = productLength;
 
             /* get product type available count */
-            vm.totalProductTypeAvailableproducts = getProductTypeCount;
+            vm.totalProductTypeAvailableproducts = productTypeLength;
 
             /* get product price range available [min to max] */
-            vm.getProductPriceRange = getProductRange;
+            vm.getProductPriceRange = productRange;
         }
     ]);
 })(angular.module("Meanapp"));
