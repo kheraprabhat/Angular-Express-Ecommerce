@@ -21,6 +21,7 @@ mongoose.connect(dbConfig.url);
 /* config routers */
 var categories = require('./routes/categories');
 var products = require('./routes/products');
+var cart = require('./routes/cart');
 
 /* init the Meanapp */
 var app = express();
@@ -49,6 +50,7 @@ require('./routes/auth')(app);
 
 app.use('/categories', categories);
 app.use('/products', products);
+app.use('/cart', cart);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

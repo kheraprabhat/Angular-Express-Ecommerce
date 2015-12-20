@@ -1,6 +1,6 @@
 (function(app) {
     'use strict';
-    app.factory('categorySrvc', ['utility', function(utility) {
+    app.factory('categorySrvc', ['$stateParams', '$location', 'utility', function($stateParams, location, utility) {
         var methods = {
         	products: function(stateParams){
         		return utility.getData('/products/' + stateParams.categoryName);
@@ -65,9 +65,26 @@
                 return utility.getData('/products/productFilterOptions' + queryString);
             },
 
-            innerFilter: function(stateParams, options){
-                console.log(stateParams, options);
-                return utility.getData('/products/productFilter/innerFilter');
+            applyInnerFilters: function(name, value){
+                var search = location.search();
+                if(!/subfilter/g.test(location.path())){
+                    location.path(location.path() + '/subfilter');
+                }
+
+                if(name && value){
+                    location.search(name, value);    
+                }                
+
+                var object = angular.extend($stateParams, search);
+                var query = utility.queryStingFormat(object);
+
+                return utility.getData('/products/subFilters' + query);
+            },
+
+            innerFilters: function(stateParams){
+                //console.log(location.search());
+                //var queryString = utility.queryStingFormat(angular.extend(stateParams, options));
+                //return utility.getData('/products/productFilter/innerFilter' + queryString);
             }
         };
         return methods;

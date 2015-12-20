@@ -1,4 +1,5 @@
 var express = require('express');
+var ObjectID = require('mongodb').ObjectID;
 var url = require('url');
 var router = express.Router();
 
@@ -26,6 +27,30 @@ router.get('/productFilterOptions', function(request, response, next) {
     });
 });
 
+/* subFilters */
+router.get('/subFilters', function(request, response, next) {
+    var subFilters = utility.getQueryString(request);
+    var query = {}, additional = {};
+    additional.categoryId = subFilters.categoryName;
+    additional.filterKeyName = subFilters.filterKeyName;
+    additional.filterKeyValue = subFilters.filterKeyValue;
+
+    if(subFilters.color){
+        query["color.text"] = subFilters.color;    
+    }
+
+    if(subFilters.size){
+        query["size.text"] = subFilters.size;
+    }
+    
+    Products.subFilters(query, additional, function(error, result) {
+        var products = utility.toJson(result);
+        response.json(result);
+    });
+});
+
+
+
 /* get product count based on selected product field name */
 router.get('/productFilter', function(request, response, next) {
     var query = utility.getQueryString(request);
@@ -36,21 +61,29 @@ router.get('/productFilter', function(request, response, next) {
 });
 
 /* get product count based on selected product field name */
+router.get('/productFilter/innerFilter', function(request, response, next) {
+    var query = utility.getQueryString(request);
+    Products.productFilter(query, function(error, result) {
+        var products = utility.toJson(result);
+        response.json(products);
+    });
+});
+
+/* get product count based on selected product field name */
 router.get('/getProductRange', function(request, response, next) {
     var query = utility.getQueryString(request);
     Products.getProductCount(query, function(error, result) {
-        var products = utility.toJson(result);
+        var products = utility.toJson(result),
+            priceArray = products.map(function(prod) {
+                return parseFloat(prod.price);
+            }),
 
-        var min = Math.min.apply(Math, products.map(function(prod) {
-            return parseFloat(prod.price);
-        }));
-        var max = Math.max.apply(Math, products.map(function(prod) {
-            return parseFloat(prod.price);
-        }));
+            minPrice = Math.min.apply(Math, priceArray),
+            maxPrice = Math.max.apply(Math, priceArray);
 
         response.json({
-            min: min,
-            max: max
+            min: minPrice,
+            max: maxPrice
         });
     });
 });
@@ -64,12 +97,14 @@ router.get('/getProductCount', function(request, response, next) {
                 totalProductFieldsCombined: 0,
                 fieldNameDetails: []
             },
-            products = JSON.parse(JSON.stringify(result));
+            products = utility.toJson(result);
 
         products.forEach(function(elem, index) {
-            if (productFields.fieldNameDetails.map(function(fieldName) {
-                    return fieldName[query.fieldName];
-                }).indexOf(elem[query.fieldName]) === -1) {
+            var fieldDetails = productFields.fieldNameDetails.map(function(fieldName) {
+                return fieldName[query.fieldName];
+            });
+
+            if (fieldDetails.indexOf(elem[query.fieldName]) === -1) {
                 var object = {};
                 object[query.fieldName] = elem[query.fieldName];
                 object.count = 0;
@@ -78,12 +113,12 @@ router.get('/getProductCount', function(request, response, next) {
         });
 
         products.forEach(function(elem, index) {
-            index = productFields.fieldNameDetails.map(function(selected) {
+            var fieldDetails = productFields.fieldNameDetails.map(function(selected) {
                 return selected[query.fieldName];
-            }).indexOf(elem[query.fieldName]);
+            });
 
+            index = fieldDetails.indexOf(elem[query.fieldName]);
             productFields.totalProductFieldsCombined++;
-
             if (index > -1) {
                 productFields.fieldNameDetails[index].count++;
             }

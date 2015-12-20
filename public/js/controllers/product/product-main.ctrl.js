@@ -8,6 +8,12 @@
 
             /* get selected product from back-end */
             vm.selectedProduct = selectedProduct[0];
+
+            vm.addToCart = function(productId){
+                utility.addToCart(productId).then(function(data){
+                    console.log(data);
+                });
+            };
         }
     ]);
 })(angular.module("Meanapp"));

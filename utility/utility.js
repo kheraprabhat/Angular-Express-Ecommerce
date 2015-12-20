@@ -36,5 +36,11 @@ module.exports = {
         });
 
         return finalArr;
+    },
+
+    getSubFilterProducts: function(products, requestQuery){
+        /*products.forEach(function(){
+            
+        });*/
     }
 };

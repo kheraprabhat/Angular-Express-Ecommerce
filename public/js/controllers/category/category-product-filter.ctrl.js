@@ -1,14 +1,20 @@
 (function(app) {
     'use strict';
     app.controller('CategoryProductFilterCtrl', [
+        '$scope',
         '$stateParams',
+        '$location',
+        '$state',
         'utility',
         'categorySrvc',
         'filteredProducts',
         'productColors',
         'productSize',
         function(
+            scope,
             stateParams,
+            location,
+            state,
             utility,
             categorySrvc,
             filteredProducts,
@@ -19,12 +25,22 @@
             vm.categoryName = stateParams.categoryName;
             vm.filterProducts = filteredProducts;
             vm.filterProductsColors = productColors;
-            vm.filterProductsSize = productSize
+            vm.filterProductsSize = productSize;
 
-            vm.changedProductsSize = function(){
-                categorySrvc.innerFilter(stateParams, {
-                    name: 'size',
-                    value: vm.selectedProductsSize
+            /*scope.$watch(function(){return location.search();}, function(oldquery, newquery){
+                if(oldquery !== newquery && !angular.equals({}, newquery)){
+                    console.log(oldquery, newquery);
+                    state.go(state.current, {}, {reload: true});
+                }
+            });*/
+
+            categorySrvc.applyInnerFilters().then(function(data){
+                vm.filterProducts = data;
+            });
+
+            vm.applyInnerFilters = function(name, value){
+                categorySrvc.applyInnerFilters(name, value).then(function(data){
+                    vm.filterProducts = data;
                 });
             };
         }

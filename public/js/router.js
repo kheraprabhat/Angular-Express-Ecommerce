@@ -1,7 +1,20 @@
 (function(app) {
     "use strict";
-    app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-        function($stateProvider, $urlRouterProvider, $locationProvider) {
+    app.config(['$controllerProvider',
+        '$compileProvider', '$filterProvider', '$provide', '$httpProvider',
+        '$stateProvider', '$urlRouterProvider', '$locationProvider',
+        function($controllerProvider,
+            $compileProvider, $filterProvider, $provide, $httpProvider,
+            $stateProvider, $urlRouterProvider, $locationProvider) {
+            
+            app.register = {
+                controller: $controllerProvider.register,
+                directive: $compileProvider.directive,
+                filter: $filterProvider.register,
+                factory: $provide.factory,
+                service: $provide.service
+            };
+
             $urlRouterProvider.otherwise('/');
             $stateProvider.state('home', {
                 url: '/',
@@ -25,7 +38,7 @@
                 views: {
                     "main": {
                         controller: 'CategoryMainCtrl',
-                        controllerAs: 'category',
+                        controllerAs: 'vm',
                         templateUrl: 'views/category/category.html',
                         resolve: {
                             products: function(categorySrvc, $stateParams) {
@@ -58,9 +71,42 @@
                 views: {
                     "main": {
                         controller: 'CategoryProductFilterCtrl',
-                        controllerAs: 'productFilter',
+                        controllerAs: 'vm',
                         templateUrl: 'views/category/category-product-filter.html',
                         resolve: {
+                            filteredProducts: function(categorySrvc, $stateParams) {
+                                return categorySrvc.filteredProducts($stateParams);
+                            },
+
+                            productColors: function(categorySrvc, $stateParams) {
+                                return categorySrvc.productColors($stateParams);
+                            },
+
+                            productSize: function(categorySrvc, $stateParams) {
+                                return categorySrvc.productSize($stateParams);
+                            }
+                        }
+                    }
+                },
+
+                data: {
+                    pageTitle: 'Product Category'
+                }
+            })
+
+            .state('/shop/:categoryName/:filterKeyName/:filterKeyValue/subfilter', {
+                url: '/shop/:categoryName/:filterKeyName/:filterKeyValue/subfilter',
+
+                views: {
+                    "main": {
+                        controller: 'CategoryProductFilterCtrl',
+                        controllerAs: 'vm',
+                        templateUrl: 'views/category/category-product-filter.html',
+                        resolve: {
+                            innerFilters: function(categorySrvc, $stateParams, $state){
+                                return categorySrvc.innerFilters($stateParams);
+                            },
+
                             filteredProducts: function(categorySrvc, $stateParams) {
                                 return categorySrvc.filteredProducts($stateParams);
                             },
@@ -87,7 +133,7 @@
                 views: {
                     "main": {
                         controller: 'ProductMainCtrl',
-                        controllerAs: 'product',
+                        controllerAs: 'vm',
                         templateUrl: 'views/product/product.html',
                         resolve: {
                             selectedProduct: function(productSrvc, $stateParams){
@@ -108,7 +154,7 @@
                 views: {
                     "main": {
                         controller: 'GiftCardsMainCtrl',
-                        controllerAs: 'giftcards',
+                        controllerAs: 'vm',
                         templateUrl: 'views/gift-cards.html'
                     }
                 },
@@ -126,7 +172,7 @@
                 views: {
                     "main": {
                         controller: 'FindStoreMainCtrl',
-                        controllerAs: 'findstore',
+                        controllerAs: 'vm',
                         templateUrl: 'views/find-store.html'
                     }
                 },
@@ -142,7 +188,7 @@
                 views: {
                     "main": {
                         controller: 'WishListMainCtrl',
-                        controllerAs: 'wishlist',
+                        controllerAs: 'vm',
                         templateUrl: 'views/wish-list.html'
                     }
                 },
@@ -160,12 +206,10 @@
                 views: {
                     "main": {
                         controller: 'MyAccountMainCtrl',
-                        controllerAs: 'myaccount',
+                        controllerAs: 'vm',
                         templateUrl: 'views/my-account.html'
                     }
                 },
-
-
 
                 data: {
                     pageTitle: 'My Account'
@@ -178,12 +222,10 @@
                 views: {
                     "main": {
                         controller: 'CartMainCtrl',
-                        controllerAs: 'cart',
+                        controllerAs: 'vm',
                         templateUrl: 'views/cart/cart.html'
                     }
                 },
-
-
 
                 data: {
                     pageTitle: 'Cart items'
@@ -196,13 +238,11 @@
                 views: {
                     "main": {
                         controller: 'CheckoutMainCtrl',
-                        controllerAs: 'checkout',
+                        controllerAs: 'vm',
                         templateUrl: 'views/checkout/checkout.html'
                     }
                 },
-
-
-
+                
                 data: {
                     pageTitle: 'Checkout'
                 }
@@ -214,19 +254,15 @@
                 views: {
                     "main": {
                         controller: 'CheckoutShippingCtrl',
-                        controllerAs: 'checkoutShipping',
+                        controllerAs: 'vm',
                         templateUrl: 'views/checkout/shipping.html'
                     }
                 },
-
-
 
                 data: {
                     pageTitle: 'Checkout'
                 }
             })
-
-
 
             .state('/checkout/payment', {
                 url: '/checkout/payment',
@@ -234,7 +270,7 @@
                 views: {
                     "main": {
                         controller: 'CheckoutPaymentCtrl',
-                        controllerAs: 'checkoutPayment',
+                        controllerAs: 'vm',
                         templateUrl: 'views/checkout/payment.html'
                     }
                 },
@@ -252,7 +288,7 @@
                 views: {
                     "main": {
                         controller: 'AuthenticationMainCtrl',
-                        controllerAs: 'login',
+                        controllerAs: 'vm',
                         templateUrl: 'views/authentication/login.html'
                     }
                 },
@@ -270,7 +306,7 @@
                 views: {
                     "main": {
                         controller: 'AuthenticationMainCtrl',
-                        controllerAs: 'signup',
+                        controllerAs: 'vm',
                         templateUrl: 'views/authentication/signup.html'
                     }
                 },
@@ -288,7 +324,7 @@
                 views: {
                     "main": {
                         controller: 'BlogsMainCtrl',
-                        controllerAs: 'blogs',
+                        controllerAs: 'vm',
                         templateUrl: 'views/blogs/blogs.html'
                     }
                 },

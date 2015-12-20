@@ -1,6 +1,7 @@
 (function(app) {
     'use strict';
     app.controller('CategoryMainCtrl', [
+        '$rootScope',
         '$stateParams',
         'utility',
         'categorySrvc',
@@ -9,6 +10,7 @@
         'productTypeLength',
         'productRange',
         function(
+            rootScope,
             stateParams,
             utility,
             categorySrvc,
@@ -36,6 +38,13 @@
 
             /* get product price range available [min to max] */
             vm.getProductPriceRange = productRange;
+
+            vm.addToCart = function(productId){
+                utility.addToCart(productId).then(function(data){
+                    console.log(data);
+                    rootScope.cartItems = data;
+                });
+            };
         }
     ]);
 })(angular.module("Meanapp"));

@@ -2,10 +2,10 @@
 /*************************
 *******Typography******
 **************************/
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
+/*@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,400italic,500,700,100);
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,800,300,600,700);
 @import url(http://fonts.googleapis.com/css?family=Abel);
-
+*/
 body {
   font-family: 'Roboto', sans-serif;
   background:;
@@ -2528,9 +2528,17 @@ h2.title {
 }
 
 .btn-product-colors.selected {
-  border: 1px solid green;
+  border: 1px solid #000;
+  box-shadow: 1px 1px 4px #000;
 }
 
 .brands-name.no-pad {
   padding: 0px;
 }
+
+.rating-icons {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.rating-icons img { width: auto; }

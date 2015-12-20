@@ -3,70 +3,47 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="left-sidebar">
-					<!-- <div ng-if="category.totalProductTypeAvailableproducts.totalProductFieldsCombined > 0" class="brands_products">
-						<h2> Product Type ({{category.totalProductTypeAvailableproducts.totalProductFieldsCombined}})</h2>
-						<div class="brands-name">
-							<ul class="nav nav-pills nav-stacked">
-								<li ng-repeat="details in category.totalProductTypeAvailableproducts.fieldNameDetails">
-									<a ng-click="category.productFilter(details.type)"><span class="pull-right">({{details.count}})</span>{{details.type}}</a>
-								</li>
-							</ul>
-						</div>
-					</div>-->
 					<div class="clearfix"></div>
 					<div style="margin-top:24px;" class="brands_products">
 						<h2>Select Color</h2>
 						<div class="brands-name no-pad">
-							<button class="btn btn-product-colors" ng-repeat="details in productFilter.filterProductsColors" style="background: {{details.text}}">&nbsp;</button>
+							<button color-button="{{details.text}}" class="btn btn-product-colors" ng-click="vm.applyInnerFilters('color', details.text)"  ng-repeat="details in vm.filterProductsColors" style="background: {{details.text}}">&nbsp;</button>
 						</div>
 					</div>
 
 					<div class="clearfix"></div>
 					<div style="margin-top:24px;" class="brands_products">
 						<h2>Select Size</h2>
-						<select ng-change="productFilter.changedProductsSize()" ng-model="productFilter.selectedProductsSize">
-							<option value="{{details.text}}" ng-selected="details.text === 'Select Size'" ng-repeat="details in productFilter.filterProductsSize">
+						<select ng-change="vm.applyInnerFilters('size', vm.selectedProductsSize)" ng-model="vm.selectedProductsSize">
+							<option size-dropdown="{{details.text}}" value="{{details.text}}" ng-selected="details.text === 'Select Size'" ng-repeat="details in vm.filterProductsSize">
 								{{details.text}}
 							</option>
 						</select>
 					</div>
 
 					<div class="clearfix"></div>
-					<div style="margin-top:24px;" class="brands_products">
-						<h2>Select Price Range</h2>
-						<select>
-							<option value="0-50">$0 - $50</option>
-							<option value="50-100">$50 - $100</option>
-							<option value="100-99999999">$100 and Above</option>
-						</select>
-					</div>
-					
-					<!-- <div ng-if="category.getProductPriceRange.max" class="price-range">
-						<h2>Price Range</h2>
-						<div class="well text-center">
-							 <div>
-							 	<b class="pull-left">$ {{category.getProductPriceRange.min}}</b>
-							 	<b class="pull-right">$ {{category.getProductPriceRange.max}}</b>
-							 </div>
-						</div>
-					</div> -->
-					
 				</div>
 			</div>
 			
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
 					<h2 class="title text-center">Items...</h2>
-					<div class="col-sm-4" ng-repeat="product in productFilter.filterProducts track by $index">
+					<div class="col-sm-4" ng-repeat="product in vm.filterProducts track by $index">
 						<div class="product-image-wrapper">
 							<div class="single-products">
 								<div class="productinfo text-center">
-									<a href="#/shop/{{productFilter.categoryName}}/{{product._id}}">
-										<img src="{{product.images.normal[0]}}" alt="" />
+									<a href="#/shop/{{vm.categoryName}}/{{product._id}}">
+										<!-- <img src="{{product.images.normal[0]}}" alt="" /> -->
+										<img src="images/home/gallery4.jpg" alt="" />
 									</a>
 									<h2>${{product.price}}</h2>
-									<p><a href="#/shop/{{productFilter.categoryName}}/{{product._id}}">{{product.name}}</a></p>
-									<a href="#/shop/{{productFilter.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+
+									<div class="clearfix"></div>
+									<span product-rating="{{product.rating}}" class="rating-icons"><img src="images/product-details/rating.png" alt="" /></span>
+									<div class="clearfix"></div>
+									
+									<p><a href="#/shop/{{vm.categoryName}}/{{product._id}}">{{product.name}}</a></p>
+									<a href="#/shop/{{vm.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 								</div>
 							</div>
 							<div class="choose">

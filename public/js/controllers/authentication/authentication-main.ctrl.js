@@ -1,6 +1,6 @@
 (function(app) {
-    app.controller("AuthenticationMainCtrl", ["authenticationSrvc", "$http", "$location",
-        function(authenticationSrvc, http, location) {
+    app.controller("AuthenticationMainCtrl", ["authenticationSrvc", "$http", "$location", "myAccountSrvc",
+        function(authenticationSrvc, http, location, myAccountSrvc) {
             var vm = this;
             vm.user = {
                 username: "",
@@ -10,6 +10,7 @@
             vm.login = function(user) {
                 http.post("/auth/login", user).success(function(data) {
                     vm.loggeduser = data;
+                    myAccountSrvc.setUser(data);
                     authenticationSrvc.changeAuthStatus('login');
                     location.path("/myaccount");
                 }).error(function() {
@@ -26,6 +27,7 @@
             vm.userinfo = function() {
                 http.get("/auth/currentuser").success(function(data) {
                     vm.loggeduser = data;
+
                 }).error(function() {
                     location.path("/signin");
                 });

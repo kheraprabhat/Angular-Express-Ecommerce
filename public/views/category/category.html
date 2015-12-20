@@ -3,34 +3,34 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="left-sidebar">
-					<div ng-if="category.totalProductTypeAvailableproducts.totalProductFieldsCombined > 0" class="brands_products"><!--brands_products-->
-						<h2> Product Type ({{category.totalProductTypeAvailableproducts.totalProductFieldsCombined}})</h2>
+					<div ng-if="vm.totalProductTypeAvailableproducts.totalProductFieldsCombined > 0" class="brands_products"><!--brands_products-->
+						<h2> Product Type ({{vm.totalProductTypeAvailableproducts.totalProductFieldsCombined}})</h2>
 						<div class="brands-name">
 							<ul class="nav nav-pills nav-stacked">
-								<li ng-repeat="details in category.totalProductTypeAvailableproducts.fieldNameDetails">
-									<a href="#/shop/{{category.categoryName}}/type/{{details.type | encodeURIComponent}}"><span class="pull-right">({{details.count}})</span>{{details.type}}</a>
+								<li ng-repeat="details in vm.totalProductTypeAvailableproducts.fieldNameDetails">
+									<a href="#/shop/{{vm.categoryName}}/type/{{details.type | encodeURIComponent}}"><span class="pull-right">({{details.count}})</span>{{details.type}}</a>
 								</li>
 							</ul>
 						</div>
 					</div><!--/brands_products-->
 					<div class="clearfix"></div>
-					<div style="margin-top:24px;" ng-if="category.totalBrandsAvailableproducts.totalProductFieldsCombined > 0" class="brands_products"><!--brands_products-->
-						<h2>Brands ({{category.totalBrandsAvailableproducts.totalProductFieldsCombined}})</h2>
+					<div style="margin-top:24px;" ng-if="vm.totalBrandsAvailableproducts.totalProductFieldsCombined > 0" class="brands_products"><!--brands_products-->
+						<h2>Brands ({{vm.totalBrandsAvailableproducts.totalProductFieldsCombined}})</h2>
 						<div class="brands-name">
 							<ul class="nav nav-pills nav-stacked">
-								<li ng-repeat="details in category.totalBrandsAvailableproducts.fieldNameDetails">
-									<a href="#/shop/{{category.categoryName}}/brand/{{details.brand | encodeURIComponent}}"><span class="pull-right">({{details.count}})</span>{{details.brand}}</a>
+								<li ng-repeat="details in vm.totalBrandsAvailableproducts.fieldNameDetails">
+									<a href="#/shop/{{vm.categoryName}}/brand/{{details.brand | encodeURIComponent}}"><span class="pull-right">({{details.count}})</span>{{details.brand}}</a>
 								</li>
 							</ul>
 						</div>
 					</div><!--/brands_products-->
 					
-					<div ng-if="category.getProductPriceRange.max" class="price-range"><!--price-range-->
+					<div ng-if="vm.getProductPriceRange.max" class="price-range"><!--price-range-->
 						<h2>Price Range</h2>
 						<div class="well text-center">
 							 <div>
-							 	<b class="pull-left">$ {{category.getProductPriceRange.min}}</b>
-							 	<b class="pull-right">$ {{category.getProductPriceRange.max}}</b>
+							 	<b class="pull-left">$ {{vm.getProductPriceRange.min}}</b>
+							 	<b class="pull-right">$ {{vm.getProductPriceRange.max}}</b>
 							 </div>
 						</div>
 					</div><!--/price-range-->
@@ -41,22 +41,28 @@
 			<div class="col-sm-9 padding-right">
 				<div class="features_items"><!--features_items-->
 					<h2 class="title text-center">Items...</h2>
-					<div class="col-sm-4" ng-repeat="product in category.selectedCategoryProducts track by $index">
+					<div class="col-sm-4" ng-repeat="product in vm.selectedCategoryProducts track by $index">
 						<div class="product-image-wrapper">
 							<div class="single-products">
 								<div class="productinfo text-center">
-									<a href="#/shop/{{category.categoryName}}/{{product._id}}">
-										<img src="{{product.images.normal[0]}}" alt="" />
+									<a href="#/shop/{{vm.categoryName}}/{{product._id}}">
+										<!-- <img src="{{product.images.normal[0]}}" alt="" /> -->
+										<img src="images/home/gallery4.jpg" alt="" />
 									</a>
+
 									<h2>${{product.price}}</h2>
-									<p><a href="#/shop/{{category.categoryName}}/{{product._id}}">{{product.name}}</a></p>
-									<a href="#/shop/{{category.categoryName}}/{{product._id}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+									
+									<div class="clearfix"></div>
+									<span product-rating="{{product.rating}}" class="rating-icons"><img src="images/product-details/rating.png" alt="" /></span>
+									<div class="clearfix"></div>
+
+									<p><a ng-click="vm.addToCart(product._id)" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 								</div>
 							</div>
 							<div class="choose">
 								<ul class="nav nav-pills nav-justified">
 									<li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-									<li><a href="#"><i class="fa fa-plus-square"></i>Add to compare</a></li>
+									<li><a ng-click="vm.addToCart(product._id)"><i class="fa fa-plus-square"></i>Add to compare</a></li>
 								</ul>
 							</div>
 						</div>

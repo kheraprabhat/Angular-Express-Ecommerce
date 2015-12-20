@@ -1,6 +1,7 @@
 (function(app) {
     'use strict';
-    app.controller('HeaderMainCtrl', ['$scope', '$location', 'authenticationSrvc', 'utility', function(scope, location, authenticationSrvc, utility) {
+    app.controller('HeaderMainCtrl', ['$scope', '$location', 'authenticationSrvc', 'utility', 'myAccountSrvc', 
+        function(scope, location, authenticationSrvc, utility, myAccountSrvc) {
         var vm = this;
         vm.primaryMenu = [];
         vm.isAuthenticated = authenticationSrvc.isLogin();
@@ -12,6 +13,7 @@
         	utility.getData('/auth/logout').then(function(data){
         		if(data === 'OK'){
         			authenticationSrvc.changeAuthStatus('logout');
+                    myAccountSrvc.setUser(null);
         			location.path('/');
         		} else { /* logout failed:: todo action */ }
         	});

@@ -6,6 +6,7 @@
             http.get('/auth/currentuser').
             success(function(data) {
                 vm.loggeduser = data;
+                myAccountSrvc.setUser(data);
             }).
             error(function() {
                 location.path('/login');

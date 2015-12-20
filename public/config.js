@@ -534,11 +534,12 @@
         "rgb": "(255, 174, 66)"
     }]);
 
-    app.run(['$rootScope', '$location', 'utility', 'authenticationSrvc',
-        function($rootScope, $location, utility, authenticationSrvc) {
+    app.run(['$rootScope', '$location', 'utility', 'authenticationSrvc', 'myAccountSrvc',
+        function($rootScope, $location, utility, authenticationSrvc, myAccountSrvc) {
             utility.getData('/auth/currentuser').then(function(data) {
                 if (!data.status) {
                     authenticationSrvc.changeAuthStatus('login');
+                    myAccountSrvc.setUser(data);
                 }
             });
         }

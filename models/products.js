@@ -68,3 +68,18 @@ module.exports.productFilterOptions = function(query, defaultCallback) {
     
     Products.find(finalQuery, defaultCallback);
 };
+
+module.exports.subFilters = function(query, additional, defaultCallback) {
+    if(additional.categoryId !== 'all-products'){
+        query.categoryId = ObjectID(additional.categoryId);
+        query[additional.filterKeyName] = additional.filterKeyValue;
+    } else {
+        query[additional.filterKeyName] = additional.filterKeyValue;
+    }
+    
+    Products.find(query, defaultCallback);
+};
+
+module.exports.addToCart = function(query, additional, defaultCallback) {
+    Products.find(query, defaultCallback);
+};

@@ -1,7 +1,8 @@
 (function(app) {
     'use strict';
-    app.factory('utility', ['$http', 'CONSTANT_COLORS', function(http, CONSTANT_COLORS) {
-        var methods = {
+    app.factory('utility', ['$http', 'CONSTANT_COLORS', 'myAccountSrvc', 
+        function(http, CONSTANT_COLORS, myAccountSrvc) {
+        var factory = {
             getData: function(url) {
                 return http.get(url).then(function(result) {
                     return result.data;
@@ -10,8 +11,8 @@
                 });
             },
 
-            postData: function(url) {
-                return http.post(url).then(function(result) {
+            postData: function(url, param) {
+                return http.post(url, param).then(function(result) {
                     return result.data;
                 }, function(error){
                     return error;
@@ -29,9 +30,18 @@
                 return CONSTANT_COLORS.filter(function(color){
                     return color.name === colorName;
                 })[0];
+            },
+
+            addToCart: function(productId){
+                var user = myAccountSrvc.getUser();
+
+                return factory.postData('/cart/addToCart', {
+                    user: user ? user.email : null,
+                    productId: productId
+                });
             }
         };
 
-        return methods;
+        return factory;
     }]);
 })(angular.module("Meanapp"));
