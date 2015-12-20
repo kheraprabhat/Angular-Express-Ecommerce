@@ -1624,11 +1624,14 @@ h2.title {
 #cart_items .cart_info .cart_total_price {
   color: #FE980F;
   font-size: 24px;
+  width: 150px;
 }
 
 .cart_product {
   display: block;
-  margin: 15px -70px 10px 25px;
+  margin: 0;
+  padding: 0;
+  width: 114px;
 }
 
 .cart_quantity_button a {
@@ -2542,3 +2545,7 @@ h2.title {
 }
 
 .rating-icons img { width: auto; }
+
+.product-thumb-image { width: 80px; }
+
+.product-cart-image img { width: 110px; }

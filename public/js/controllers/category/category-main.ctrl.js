@@ -40,8 +40,12 @@
             vm.getProductPriceRange = productRange;
 
             vm.addToCart = function(productId){
-                utility.addToCart(productId).then(function(data){
-                    console.log(data);
+                var object = {
+                    productId: productId,
+                    quantity: 1
+                };
+
+                utility.addToCart(object).then(function(data){
                     rootScope.cartItems = data;
                 });
             };

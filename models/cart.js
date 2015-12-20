@@ -6,26 +6,39 @@ var Schema = mongoose.Schema,
 var Cart = module.exports = mongoose.model('cart', new mongoose.Schema({
     "_id": ObjectId,
     "productId": ObjectId,
-    "user": String
+    "user": String,
+    "quantity": String
 }));
 
-/* simple product collection containg all products in single response */
-module.exports.getCartItems = function(defaultCallback) {
+function _getCartItems(query, defaultCallback) {
     Cart.find(defaultCallback);
-};
+}
 
-module.exports.addToCart = function(query, defaultCallback) {
-    Cart.find({'productId': ObjectID(query.productId)}, function(error, result){
-        if(!result.length){
+function _addToCart(query, defaultCallback) {
+    Cart.find({'productId': ObjectID(query.productId)}, function(error, result) {
+        if (result.length) {
+            Cart.update({'productId': ObjectID(query.productId)}, {
+                quantity: query.quantity
+            }, function(err, numberAffected, rawResponse) {
+                Cart.find({}, defaultCallback);
+            });
+
+        } else {
             var model = new Cart();
             model._id = new ObjectID();
             model.productId = ObjectID(query.productId);
+
             model.user = query.user;
-            model.save(function(error, doc){
-                defaultCallback(error, doc);
+            model.quantity = query.quantity;
+
+            model.save(function(error, doc) {
+                Cart.find({}, defaultCallback);
             });
-        } else {
-            defaultCallback(null, {});
+
         }
     });
-};
+}
+
+/* simple product collection containg all products in single response */
+module.exports.getCartItems = _getCartItems;
+module.exports.addToCart = _addToCart;

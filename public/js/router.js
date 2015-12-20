@@ -159,8 +159,6 @@
                     }
                 },
 
-
-
                 data: {
                     pageTitle: 'Gift Cards'
                 }
@@ -192,8 +190,6 @@
                         templateUrl: 'views/wish-list.html'
                     }
                 },
-
-
 
                 data: {
                     pageTitle: 'Wish list'
@@ -242,7 +238,7 @@
                         templateUrl: 'views/checkout/checkout.html'
                     }
                 },
-                
+
                 data: {
                     pageTitle: 'Checkout'
                 }
@@ -293,8 +289,6 @@
                     }
                 },
 
-
-
                 data: {
                     pageTitle: 'Login'
                 }
@@ -310,8 +304,6 @@
                         templateUrl: 'views/authentication/signup.html'
                     }
                 },
-
-
 
                 data: {
                     pageTitle: 'Register'

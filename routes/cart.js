@@ -8,25 +8,85 @@ var utility = require('../utility/utility');
 
 /* load products model */
 var Cart = require('../models/cart');
+var Products = require('../models/products');
 
 /* GET users listing. */
 router.get('/', function(request, response, next) {
-    Cart.getCartItems(function(error, result) {
-        response.json(result);
+    var query = {
+        user: request.body.user
+    };
+
+    Cart.getCartItems(query, function(error, result) {
+        var cartItems = [];
+        var totalPrice = 0;
+        result = utility.toJson(result);
+        result.forEach(function(prod, index){
+            Products.findOne({'_id': ObjectID(prod.productId)}, function(err, res){
+                var cartItem = {};
+                res = utility.toJson(res);
+
+                cartItem.name = res.name;
+                cartItem.style = res.productId;
+                cartItem.price = res.price;
+                cartItem.image = res.images.thumb[0];
+                cartItem.quantity = prod.quantity;
+
+                totalPrice += cartItem.quantity * cartItem.price;
+                cartItems.push(cartItem);
+
+                if(result.length - 1 === index){
+                    response.json({
+                        totalItems: cartItems.length,
+                        totalPrice: totalPrice,
+                        products: cartItems
+                    });
+                }
+            });
+        });
+
+        if(!result.length){
+            response.json({
+                totalItems: cartItems.length,
+                totalPrice: totalPrice,
+                products: cartItems
+            });
+        }
     });
 });
 
 router.post('/addToCart', function(request, response, next) {
     var query = {
-        user: request.body.user || 'anonymous',
-        productId: request.body.productId
+        user: request.body.user,
+        productId: request.body.productId,
+        quantity: request.body.quantity
     };
 
     Cart.addToCart(query, function(error, result) {
-        response.json({
-            success: true,
-            status: result._id ? 'insert' : 'update',
-            message: 'Product added in cart items.'
+        var cartItems = [];
+        var totalPrice = 0;
+        result = utility.toJson(result);
+        result.forEach(function(prod, index){
+            Products.findOne({'_id': ObjectID(prod.productId)}, function(err, res){
+                var cartItem = {};
+                res = utility.toJson(res);
+
+                cartItem.name = res.name;
+                cartItem.style = res.productId;
+                cartItem.price = res.price;
+                cartItem.image = res.images.thumb[0];
+                cartItem.quantity = prod.quantity;
+
+                totalPrice += cartItem.quantity * cartItem.price;
+                cartItems.push(cartItem);
+
+                if(result.length - 1 === index){
+                    response.json({
+                        totalItems: cartItems.length,
+                        totalPrice: totalPrice,
+                        products: cartItems
+                    });
+                }
+            });
         });
     });
 });

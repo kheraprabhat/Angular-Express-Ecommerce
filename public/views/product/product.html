@@ -3,7 +3,7 @@
 		<div class="product-details"><!--product-details-->
 			<div class="col-sm-5">
 				<div class="view-product">
-					<img src="images/home/product1.jpg" alt="" />
+					<img src="images/products/product-details/{{vm.selectedProduct.images.productDetails[0]}}.jpg" alt="" />
 					<h3>ZOOM</h3>
 				</div>
 				<div id="similar-product" class="carousel slide" data-ride="carousel">
@@ -11,9 +11,9 @@
 					  <!-- Wrapper for slides -->
 					    <div class="carousel-inner">
 							<div class="item active">
-							  <a ng-repeat="thumb in vm.selectedvm.images.thumb track by $index" href="">
+							  <a ng-repeat="thumb in vm.selectedProduct.images.thumb track by $index" href="">
 							  	<!-- <img src="{{thumb}}" alt=""> -->
-							  	<img src="images/home/similar1.jpg" alt="" />
+							  	<img class="product-thumb-image" src="images/products/thumbs/{{thumb}}.jpg" alt="" />
 							  </a>
 							</div>
 							
@@ -32,21 +32,21 @@
 			<div class="col-sm-7">
 				<div class="product-information"><!--/product-information-->
 					<img src="images/product-details/new.jpg" class="newarrival" alt="" />
-					<h2>{{vm.selectedvm.name}}</h2>
-					<p>Web ID: {{vm.selectedvm.style}}</p>
-					<span product-rating="{{vm.selectedvm.rating}}" class="rating-icons"><img src="images/product-details/rating.png" alt="" /></span>
+					<h2>{{vm.selectedProduct.name}}</h2>
+					<p>Web ID: {{vm.selectedProduct.images.style}}</p>
+					<span product-rating="{{vm.selectedProduct.rating}}" class="rating-icons"><img src="images/product-details/rating.png" alt="" /></span>
 					<span>
-						<span>US ${{vm.selectedvm.price}}</span>
+						<span>US ${{vm.selectedProduct.price}}</span>
 						<label>Quantity:</label>
-						<input type="text" value="3" />
-						<button ng-click="vm.addToCart(vm.selectedvm._id)" type="button" class="btn btn-fefault cart">
+						<input type="text" value="3" ng-model="vm.productQuantity" />
+						<button ng-click="vm.addToCart(vm.selectedProduct._id)" type="button" class="btn btn-fefault cart">
 							<i class="fa fa-shopping-cart"></i>
 							Add to cart
 						</button>
 					</span>
 					<p><b>Availability:</b> In Stock</p>
 					<p><b>Condition:</b> New</p>
-					<p><b>Brand:</b> {{vm.selectedvm.brand}}</p>
+					<p><b>Brand:</b> {{vm.selectedProduct.brand}}</p>
 					<a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
 				</div><!--/product-information-->
 			</div>

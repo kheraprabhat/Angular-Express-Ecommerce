@@ -46,8 +46,9 @@
 							<div class="single-products">
 								<div class="productinfo text-center">
 									<a href="#/shop/{{vm.categoryName}}/{{product._id}}">
+
 										<!-- <img src="{{product.images.normal[0]}}" alt="" /> -->
-										<img src="images/home/gallery4.jpg" alt="" />
+										<img src="images/products/category/{{product.images.category}}.jpg" alt="" />
 									</a>
 
 									<h2>${{product.price}}</h2>
@@ -55,7 +56,7 @@
 									<div class="clearfix"></div>
 									<span product-rating="{{product.rating}}" class="rating-icons"><img src="images/product-details/rating.png" alt="" /></span>
 									<div class="clearfix"></div>
-
+									<p><a href="#/shop/{{vm.categoryName}}/{{product._id}}">{{product.name}}</a></p>
 									<p><a ng-click="vm.addToCart(product._id)" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
 								</div>
 							</div>

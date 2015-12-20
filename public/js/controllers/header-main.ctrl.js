@@ -1,12 +1,16 @@
 (function(app) {
     'use strict';
-    app.controller('HeaderMainCtrl', ['$scope', '$location', 'authenticationSrvc', 'utility', 'myAccountSrvc', 
-        function(scope, location, authenticationSrvc, utility, myAccountSrvc) {
+    app.controller('HeaderMainCtrl', ['$rootScope', '$scope', '$location', 'authenticationSrvc', 'utility', 'myAccountSrvc', 
+        function(rootScope, scope, location, authenticationSrvc, utility, myAccountSrvc) {
         var vm = this;
         vm.primaryMenu = [];
         vm.isAuthenticated = authenticationSrvc.isLogin();
         vm.primaryMenu = utility.getData('/categories').then(function(data) {
             vm.primaryMenu = data;
+        });
+
+        utility.cartItems().then(function(data){
+            rootScope.cartItems = data;
         });
 
         vm.logout = function() {

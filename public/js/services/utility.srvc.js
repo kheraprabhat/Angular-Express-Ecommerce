@@ -32,13 +32,24 @@
                 })[0];
             },
 
-            addToCart: function(productId){
+            cartItems: function(){
                 var user = myAccountSrvc.getUser();
-
-                return factory.postData('/cart/addToCart', {
-                    user: user ? user.email : null,
-                    productId: productId
+                var queryString = factory.queryStingFormat({
+                    user: user ? user.email : 'anonymous'
                 });
+
+                return factory.getData('/cart' + queryString);
+            },
+
+            addToCart: function(object){
+                var user = myAccountSrvc.getUser();
+                var details = {};
+                
+                details.productId = object.productId;
+                details.user = user ? user.email : 'anonymous';
+                details.quantity = object.quantity || 1; 
+
+                return factory.postData('/cart/addToCart', details);
             }
         };
 
