@@ -536,10 +536,13 @@
 
     app.run(['$rootScope', '$location', 'utility', 'authenticationSrvc', 'myAccountSrvc',
         function($rootScope, $location, utility, authenticationSrvc, myAccountSrvc) {
+            var authcurrentuser = null;
             utility.getData('/auth/currentuser').then(function(data) {
+                authcurrentuser = true;
                 if (data.status) {
                     authenticationSrvc.changeAuthStatus('login');
                     myAccountSrvc.setUser(data);
+                    $rootScope.$broadcast('authenticationcompleted');
                 }
             });
         }

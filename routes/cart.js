@@ -13,7 +13,7 @@ var Products = require('../models/products');
 /* GET users listing. */
 router.get('/', function(request, response, next) {
     var query = {
-        user: request.body.user
+        username: request.body.username
     };
 
     Cart.getCartItems(query, function(error, result) {
@@ -57,7 +57,7 @@ router.get('/', function(request, response, next) {
 
 router.post('/addToCart', function(request, response, next) {
     var query = {
-        user: request.body.user,
+        username: request.body.username,
         productId: request.body.productId,
         quantity: request.body.quantity
     };

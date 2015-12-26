@@ -71,7 +71,7 @@ module.exports = function(app) {
             email: req.user.email,
             lastname: req.user.lastname,
             firstname: req.user.firstname,
-            username: req.user.username
+            username: req.user.email.split('@')[0]
         };
         res.json(details);
     });

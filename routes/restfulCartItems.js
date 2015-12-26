@@ -11,10 +11,18 @@ var Cart = require('../models/cart');
 var Products = require('../models/products');
 
 exports.index = function(request, response) {
-    var query = {
-        user: request.body.user
-    };
-    Cart.find(function(err, result) {
+};
+
+exports.new = function(req, res) {
+    res.send('new forum');
+};
+
+exports.create = function(req, res) {
+    res.send('create forum');
+};
+
+exports.show = function(request, response) {
+    Cart.find({'username': request.params.current}, function(err, result) {
         var cartItems = [];
         var totalPrice = 0;
         result = utility.toJson(result);
@@ -38,35 +46,23 @@ exports.index = function(request, response) {
                 cartItems.push(cartItem);
 
                 if (cartItems.length === result.length) {
-                    response.json([{
+                    response.json({
                         totalItems: cartItems.length,
                         totalPrice: totalPrice,
                         products: cartItems
-                    }]);
+                    });
                 }
             });
         });
 
         if (!result.length) {
-            response.json([{
+            response.json({
                 totalItems: cartItems.length,
                 totalPrice: totalPrice,
                 products: cartItems
-            }]);
+            });
         }
     });
-};
-
-exports.new = function(req, res) {
-    res.send('new forum');
-};
-
-exports.create = function(req, res) {
-    res.send('create forum');
-};
-
-exports.show = function(req, res) {
-    res.send('show forum ' + req.params.forum);
 };
 
 exports.edit = function(req, res) {
@@ -74,7 +70,7 @@ exports.edit = function(req, res) {
 };
 
 exports.update = function(request, response) {
-    console.log(request.params, request.body);
+    
     Cart.update({
         '_id': ObjectID(request.params.current)
     }, {

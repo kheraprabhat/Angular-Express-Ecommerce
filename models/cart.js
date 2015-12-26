@@ -6,7 +6,7 @@ var Schema = mongoose.Schema,
 var Cart = module.exports = mongoose.model('cart', new mongoose.Schema({
     "_id": ObjectId,
     "productId": ObjectId,
-    "user": String,
+    "username": String,
     "quantity": String
 }));
 
@@ -15,7 +15,7 @@ function _getCartItems(query, defaultCallback) {
 }
 
 function _addToCart(query, defaultCallback) {
-    Cart.find({'productId': ObjectID(query.productId)}, function(error, result) {
+    Cart.find({'username': query.username, 'productId': ObjectID(query.productId)}, function(error, result) {
         if (result.length) {
             Cart.update({'productId': ObjectID(query.productId)}, {
                 quantity: query.quantity
@@ -28,7 +28,7 @@ function _addToCart(query, defaultCallback) {
             model._id = new ObjectID();
             model.productId = ObjectID(query.productId);
 
-            model.user = query.user;
+            model.username = query.username;
             model.quantity = query.quantity;
 
             model.save(function(error, doc) {
