@@ -1,7 +1,10 @@
 (function(app) {
     'use strict';
-    app.factory('cartSrvc', [function() {
-        var methods = {};
-        return methods;
+    app.factory('cartSrvc', ['$resource', function(resource) {
+        return resource('/cart/current/:id', {id: '@id'}, {
+        	update: {
+		      	method: 'PUT'
+		    }
+        });
     }]);
 })(angular.module("Meanapp"));

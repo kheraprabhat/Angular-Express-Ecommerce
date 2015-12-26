@@ -1,16 +1,14 @@
 (function(app) {
     'use strict';
-    app.controller('MyAccountMainCtrl', ['$http', '$location', 'myAccountSrvc',
-        function(http, location, myAccountSrvc) {
+    app.controller('MyAccountMainCtrl', ['$http', '$location', 'myAccountSrvc', 'currentuser',
+        function(http, location, myAccountSrvc, currentuser) {
             var vm = this;
-            http.get('/auth/currentuser').
-            success(function(data) {
-                vm.loggeduser = data;
-                myAccountSrvc.setUser(data);
-            }).
-            error(function() {
-                location.path('/login');
-            });
+            if(currentuser.status){
+                vm.loggeduser = currentuser;
+                myAccountSrvc.setUser(currentuser);
+            } else {
+                location.path('/login');    
+            }
         }
     ]);
 })(angular.module("Meanapp"));

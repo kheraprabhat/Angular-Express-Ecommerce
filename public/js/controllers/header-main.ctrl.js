@@ -9,8 +9,8 @@
             vm.primaryMenu = data;
         });
 
-        utility.cartItems().then(function(data){
-            rootScope.cartItems = data;
+        rootScope.$on('cartItemsReceived', function(){
+            rootScope.cartItems = utility.getStorage('cartItemsReceived');
         });
 
         vm.logout = function() {

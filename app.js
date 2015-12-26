@@ -6,6 +6,8 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var Resource = require('express-resource');
+
 var mongodb = require('mongodb');
 var dbConfig = require('./config/database');
 var mongoose = require('mongoose');
@@ -47,6 +49,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 require('./routes/auth')(app);
+
+
+app.resource('cart/current', require('./routes/restfulCartItems'));
 
 app.use('/categories', categories);
 app.use('/products', products);

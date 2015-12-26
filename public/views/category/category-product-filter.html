@@ -15,7 +15,8 @@
 					<div style="margin-top:24px;" class="brands_products">
 						<h2>Select Size</h2>
 						<select ng-change="vm.applyInnerFilters('size', vm.selectedProductsSize)" ng-model="vm.selectedProductsSize">
-							<option size-dropdown="{{details.text}}" value="{{details.text}}" ng-selected="details.text === 'Select Size'" ng-repeat="details in vm.filterProductsSize">
+							<option ng-if="!details.text" selected>Select Size</option>
+							<option ng-if="details.text" size-dropdown="{{details.text}}" value="{{details.text}}" ng-repeat="details in vm.filterProductsSize">
 								{{details.text}}
 							</option>
 						</select>

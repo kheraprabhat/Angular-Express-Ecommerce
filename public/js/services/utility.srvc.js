@@ -2,7 +2,18 @@
     'use strict';
     app.factory('utility', ['$http', 'CONSTANT_COLORS', 'myAccountSrvc', 
         function(http, CONSTANT_COLORS, myAccountSrvc) {
+        var _storage = {};
         var factory = {
+            addStorage: function(name, value){
+                _storage[name] = value;
+                return _storage[name];
+            },
+            getStorage: function(name){
+                return _storage[name];
+            },
+            deleteStorage: function(name){
+                delete _storage[name];
+            },
             getData: function(url) {
                 return http.get(url).then(function(result) {
                     return result.data;
@@ -19,7 +30,7 @@
                 });
             },
 
-            queryStingFormat: function(object) {
+            queryString: function(object) {
                 return '?' + Object.keys(object).reduce(function(array, property) {
                     array.push(property + '=' + encodeURIComponent(object[property]));
                     return array;
@@ -34,7 +45,7 @@
 
             cartItems: function(){
                 var user = myAccountSrvc.getUser();
-                var queryString = factory.queryStingFormat({
+                var queryString = factory.queryString({
                     user: user ? user.email : 'anonymous'
                 });
 

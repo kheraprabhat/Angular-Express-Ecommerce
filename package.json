@@ -27,6 +27,7 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
+    "express-resource": "^1.0.0",
     "gulp": "^3.9.0",
     "gulp-concat": "~2.4.3",
     "gulp-jshint": "^2.0.0",

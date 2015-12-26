@@ -203,7 +203,12 @@
                     "main": {
                         controller: 'MyAccountMainCtrl',
                         controllerAs: 'vm',
-                        templateUrl: 'views/my-account.html'
+                        templateUrl: 'views/my-account.html',
+                        resolve: {
+                            currentuser: function(utility){
+                                return utility.getData('/auth/currentuser');
+                            }
+                        }
                     }
                 },
 

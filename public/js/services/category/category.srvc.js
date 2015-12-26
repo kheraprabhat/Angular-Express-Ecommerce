@@ -7,7 +7,7 @@
         	},
 
         	productLength: function(stateParams){
-        		var queryString = utility.queryStingFormat({
+        		var queryString = utility.queryString({
                     categoryId: stateParams.categoryName,
                     fieldName: 'brand'
                 });
@@ -16,7 +16,7 @@
         	},
 
             productTypeLength: function(stateParams){
-                var queryString = utility.queryStingFormat({
+                var queryString = utility.queryString({
                     categoryId: stateParams.categoryName,
                     fieldName: 'type'
                 });
@@ -25,7 +25,7 @@
             },
 
             productRange: function(stateParams){
-                var queryString = utility.queryStingFormat({
+                var queryString = utility.queryString({
                     categoryId: stateParams.categoryName,
                     fieldName: 'price'
                 });
@@ -34,7 +34,7 @@
             },
 
             filteredProducts: function(stateParams){
-                var queryString = utility.queryStingFormat({
+                var queryString = utility.queryString({
                     categoryId: stateParams.categoryName,
                     filterKeyName: stateParams.filterKeyName,
                     filterKeyValue: stateParams.filterKeyValue
@@ -44,7 +44,7 @@
             },
 
             productColors: function(stateParams){
-                var queryString = utility.queryStingFormat({
+                var queryString = utility.queryString({
                     categoryId: stateParams.categoryName,
                     filterKeyName: stateParams.filterKeyName,
                     filterKeyValue: stateParams.filterKeyValue,
@@ -55,7 +55,7 @@
             },
 
             productSize: function(stateParams){
-                var queryString = utility.queryStingFormat({
+                var queryString = utility.queryString({
                     categoryId: stateParams.categoryName,
                     filterKeyName: stateParams.filterKeyName,
                     filterKeyValue: stateParams.filterKeyValue,
@@ -76,14 +76,14 @@
                 }                
 
                 var object = angular.extend($stateParams, search);
-                var query = utility.queryStingFormat(object);
+                var query = utility.queryString(object);
 
                 return utility.getData('/products/subFilters' + query);
             },
 
             innerFilters: function(stateParams){
                 //console.log(location.search());
-                //var queryString = utility.queryStingFormat(angular.extend(stateParams, options));
+                //var queryString = utility.queryString(angular.extend(stateParams, options));
                 //return utility.getData('/products/productFilter/innerFilter' + queryString);
             }
         };

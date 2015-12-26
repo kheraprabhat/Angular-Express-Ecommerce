@@ -537,7 +537,7 @@
     app.run(['$rootScope', '$location', 'utility', 'authenticationSrvc', 'myAccountSrvc',
         function($rootScope, $location, utility, authenticationSrvc, myAccountSrvc) {
             utility.getData('/auth/currentuser').then(function(data) {
-                if (!data.status) {
+                if (data.status) {
                     authenticationSrvc.changeAuthStatus('login');
                     myAccountSrvc.setUser(data);
                 }

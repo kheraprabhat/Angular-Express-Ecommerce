@@ -1,5 +1,5 @@
 <div class="container">
-		<section id="cart_items">
+	<section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
@@ -33,16 +33,16 @@
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="tel" ng-model="item.quantity" name="quantity" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
+									<a class="cart_quantity_up" ng-click="vm.incrementQuantity(item._id, $index)"> + </a>
+									<input class="cart_quantity_input" disabled type="tel" ng-model="item.quantity" name="quantity" autocomplete="off" size="2" ng-model="vm.test">
+									<a class="cart_quantity_down" ng-click="vm.decrementQuantity(item._id, $index)"> - </a>
 								</div>
 							</td>
 							<td class="cart_total">
 								<p class="cart_total_price">${{item.quantity * item.price | toFixed}}</p>
 							</td>
 							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+								<a ng-click="vm.removeItem(item._id)" class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
 							</td>
 						</tr>
 					</tbody>
@@ -115,10 +115,10 @@
 				<div class="col-sm-6">
 					<div class="total_area">
 						<ul>
-							<li>Cart Sub Total <span>$59</span></li>
-							<li>Eco Tax <span>$2</span></li>
+							<li>Cart Sub Total <span>${{vm.cartItems.totalPrice | toFixed}}</span></li>
+							<li>Eco Tax <span>$15</span></li>
 							<li>Shipping Cost <span>Free</span></li>
-							<li>Total <span>$61</span></li>
+							<li>Total <span>${{vm.cartItems.totalPrice + 15 | toFixed}}</span></li>
 						</ul>
 							<a class="btn btn-default update" href="">Update</a>
 							<a class="btn btn-default check_out" href="">Check Out</a>

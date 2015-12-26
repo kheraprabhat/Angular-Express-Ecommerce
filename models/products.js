@@ -25,8 +25,8 @@ module.exports.getSelectedProductBycategoryId = function(categoryId, productId, 
 };
 
 /* model to count products available in database based on category id 
-	if 'all-products' was passed a category, it means need to go throug all products
-	available in database, to count and return available product length
+    if 'all-products' was passed a category, it means need to go throug all products
+    available in database, to count and return available product length
 */
 module.exports.getProductCount = function(query, defaultCallback) {
     query = query.categoryId === 'all-products' ? {} : {
@@ -36,8 +36,8 @@ module.exports.getProductCount = function(query, defaultCallback) {
 };
 
 /* model to filed name range, (Example: price, oldprice, newprice) products available in database based on category id 
-	if 'all-products' was passed a category, it means need to go throug all products
-	available in database, to count and return available product's range length
+    if 'all-products' was passed a category, it means need to go throug all products
+    available in database, to count and return available product's range length
 */
 module.exports.getProductRange = function(query, defaultCallback) {
     query = query.categoryId === 'all-products' ? {} : {
@@ -48,35 +48,35 @@ module.exports.getProductRange = function(query, defaultCallback) {
 
 module.exports.productFilter = function(query, defaultCallback) {
     var finalQuery = {};
-    if(query.categoryId !== 'all-products'){
+    if (query.categoryId !== 'all-products') {
         finalQuery.categoryId = ObjectID(query.categoryId);
         finalQuery[query.filterKeyName] = query.filterKeyValue;
     } else {
         finalQuery[query.filterKeyName] = query.filterKeyValue;
-    }    
+    }
     Products.find(finalQuery, defaultCallback);
 };
 
 module.exports.productFilterOptions = function(query, defaultCallback) {
     var finalQuery = {};
-    if(query.categoryId !== 'all-products'){
+    if (query.categoryId !== 'all-products') {
         finalQuery.categoryId = ObjectID(query.categoryId);
         finalQuery[query.filterKeyName] = query.filterKeyValue;
     } else {
         finalQuery[query.filterKeyName] = query.filterKeyValue;
     }
-    
+
     Products.find(finalQuery, defaultCallback);
 };
 
 module.exports.subFilters = function(query, additional, defaultCallback) {
-    if(additional.categoryId !== 'all-products'){
+    if (additional.categoryId !== 'all-products') {
         query.categoryId = ObjectID(additional.categoryId);
         query[additional.filterKeyName] = additional.filterKeyValue;
     } else {
         query[additional.filterKeyName] = additional.filterKeyValue;
     }
-    
+
     Products.find(query, defaultCallback);
 };
 

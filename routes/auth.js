@@ -54,7 +54,9 @@ module.exports = function(app) {
         if (req.isAuthenticated()) {
             return next();
         }
-        res.send(401);
+        res.json({
+            status: false
+        });
     }
 
     app.post("/auth/login", passport.authenticate("local"), function(req, res) {
@@ -65,6 +67,7 @@ module.exports = function(app) {
 
     app.get("/auth/currentuser", isAuthenticated, function(req, res) {
         var details = {
+            status: true,
             email: req.user.email,
             lastname: req.user.lastname,
             firstname: req.user.firstname,
@@ -83,10 +86,12 @@ module.exports = function(app) {
         u.save(function(err) {
             if (err) {
                 res.json({
+                    status: false,
                     "alert": "Registration error"
                 });
             } else {
                 res.json({
+                    status: true,
                     "alert": "Registration success"
                 });
             }
