@@ -330,6 +330,8 @@
                     pageTitle: 'Blogs'
                 }
             });
+
+            /*$locationProvider.html5Mode(true);*/
         }
     ]);
 })(angular.module("Meanapp"));

@@ -1,74 +1,132 @@
 <div class="container">
 	<div class="shopper-informations">
 		<div class="row">
-			<div class="col-sm-3">
-				<div class="shopper-info">
-					<p>Shopper Information</p>
-					<form>
-						<input type="text" placeholder="Display Name">
-						<input type="text" placeholder="User Name">
-						<input type="password" placeholder="Password">
-						<input type="password" placeholder="Confirm password">
-					</form>
-					<a class="btn btn-primary" href="">Get Quotes</a>
-					<a class="btn btn-primary" href="">Continue</a>
-				</div>
-			</div>
-			<div class="col-sm-5 clearfix">
+			<form name="userForm" novalidate>
+			<div class="col-sm-8 clearfix">
 				<div class="bill-to">
 					<p>Bill To</p>
 					<div class="form-one">
-						<form>
-							<input type="text" placeholder="Company Name">
-							<input type="text" placeholder="Email*">
-							<input type="text" placeholder="Title">
-							<input type="text" placeholder="First Name *">
-							<input type="text" placeholder="Middle Name">
-							<input type="text" placeholder="Last Name *">
-							<input type="text" placeholder="Address 1 *">
-							<input type="text" placeholder="Address 2">
-						</form>
+
+						<div class="form-group" 
+							ng-class="{ 'has-error': userForm.name.$touched && userForm.name.$invalid }">
+							<label>Name</label>
+							<input type="text" name="name" class="form-control" 
+							ng-model="main.name"
+							ng-minlength="5"
+							ng-maxlength="10"
+							required>
+
+							<div class="help-block" ng-messages="userForm.name.$error" ng-if="userForm.name.$touched">
+							<p ng-message="minlength">Your name is too short.</p>
+							<p ng-message="maxlength">Your name is too long.</p>
+							<p ng-message="required">Your name is required.</p>
+							</div>
+						</div>
+
+						<div class="form-group" 
+							ng-class="{ 'has-error': userForm.email.$touched && userForm.email.$invalid }">
+							<label>Email</label>
+							<input type="email" name="email" class="form-control" 
+							ng-model="main.email"
+							ng-minlength="5"
+							ng-maxlength="20"
+							required>
+
+							<div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+							<div ng-messages-include="messages.html"></div>
+							</div>
+
+						</div>
+						
+						<input type="text" placeholder="Company Name"
+							ng-model="vm.shippingDetails.name"
+					        ng-minlength="5"
+					        ng-maxlength="10"
+					        required
+				        >
+
+						<input type="text" placeholder="Email*">
+						<input type="text" placeholder="Title">
+						<input type="text" placeholder="First Name *">
+						<input type="text" placeholder="Middle Name">
+						<input type="text" placeholder="Last Name *">
+						<input type="text" placeholder="Address 1 *">
+						<input type="text" placeholder="Address 2">
+						
 					</div>
 					<div class="form-two">
-						<form>
-							<input type="text" placeholder="Zip / Postal Code *">
-							<select>
-								<option>-- Country --</option>
-								<option>United States</option>
-								<option>Bangladesh</option>
-								<option>UK</option>
-								<option>India</option>
-								<option>Pakistan</option>
-								<option>Ucrane</option>
-								<option>Canada</option>
-								<option>Dubai</option>
-							</select>
-							<select>
-								<option>-- State / Province / Region --</option>
-								<option>United States</option>
-								<option>Bangladesh</option>
-								<option>UK</option>
-								<option>India</option>
-								<option>Pakistan</option>
-								<option>Ucrane</option>
-								<option>Canada</option>
-								<option>Dubai</option>
-							</select>
-							<input type="password" placeholder="Confirm password">
-							<input type="text" placeholder="Phone *">
-							<input type="text" placeholder="Mobile Phone">
-							<input type="text" placeholder="Fax">
-						</form>
+						
+						<input type="text" placeholder="Zip / Postal Code *">
+						<select>
+							<option>-- Country --</option>
+							<option>United States</option>
+							<option>Bangladesh</option>
+							<option>UK</option>
+							<option>India</option>
+							<option>Pakistan</option>
+							<option>Ucrane</option>
+							<option>Canada</option>
+							<option>Dubai</option>
+						</select>
+						<select>
+							<option>-- State / Province / Region --</option>
+							<option>United States</option>
+							<option>Bangladesh</option>
+							<option>UK</option>
+							<option>India</option>
+							<option>Pakistan</option>
+							<option>Ucrane</option>
+							<option>Canada</option>
+							<option>Dubai</option>
+						</select>
+						<input type="password" placeholder="Confirm password">
+						<input type="text" placeholder="Phone *">
+						<input type="text" placeholder="Mobile Phone">
+						<input type="text" placeholder="Fax">
+						
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-4">
 				<div class="order-message">
-					<p>Shipping Order</p>
-					<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
+					<p>Shipping Order Summary</p>
+
+					<div class="table-responsive cart_info order-summary">
+						<table class="table table-condensed">
+							<tr>
+								<td colspan="4">&nbsp;</td>
+								<td colspan="2">
+									<table class="table table-condensed total-result">
+										<tr>
+											<td>Totak Items</td>
+											<td>{{vm.orderSummary.totalItems}}</td>
+										</tr>
+										<tr>
+											<td>Cart Sub Total</td>
+											<td>${{vm.orderSummary.totalPrice | toFixed}}</td>
+										</tr>
+										<tr>
+											<td>Exo Tax</td>
+											<td>$15</td>
+										</tr>
+										<tr class="shipping-cost">
+											<td>Shipping Cost</td>
+											<td>Free</td>										
+										</tr>
+										<tr>
+											<td>Total</td>
+											<td><span>${{vm.orderSummary.totalPrice + 15 | toFixed}}</span></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</div>
 					<label><input type="checkbox"> Shipping to bill address</label>
-				</div>	
-			</div>					
+				</div>
+				<button type="submit" class="btn btn-primary">Continue - Payment</button>
+			</div>
+			</form>					
 		</div>
 	</div>
 </div>

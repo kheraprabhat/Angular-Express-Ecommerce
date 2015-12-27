@@ -26,25 +26,20 @@ exports.show = function(request, response) {
         var cartItems = [];
         var totalPrice = 0;
         result = utility.toJson(result);
-
         result.forEach(function(prod, index) {
             Products.findOne({
                 '_id': ObjectID(prod.productId)
             }, function(err, res) {
                 var cartItem = {};
                 res = utility.toJson(res);
-
                 cartItem.name = res.name;
-
                 cartItem.style = res.productId;
                 cartItem.price = res.price;
                 cartItem.image = res.images.thumb[0];
                 cartItem.quantity = prod.quantity;
                 cartItem._id = prod._id;
-
                 totalPrice += cartItem.quantity * cartItem.price;
                 cartItems.push(cartItem);
-
                 if (cartItems.length === result.length) {
                     response.json({
                         totalItems: cartItems.length,
@@ -70,7 +65,6 @@ exports.edit = function(req, res) {
 };
 
 exports.update = function(request, response) {
-    
     Cart.update({
         '_id': ObjectID(request.params.current)
     }, {

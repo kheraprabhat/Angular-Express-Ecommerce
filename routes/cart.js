@@ -20,21 +20,17 @@ router.get('/', function(request, response, next) {
         var cartItems = [];
         var totalPrice = 0;
         result = utility.toJson(result);
-
         result.forEach(function(prod, index){
             Products.findOne({'_id': ObjectID(prod.productId)}, function(err, res){
                 var cartItem = {};
                 res = utility.toJson(res);
-
                 cartItem.name = res.name;
                 cartItem.style = res.productId;
                 cartItem.price = res.price;
                 cartItem.image = res.images.thumb[0];
                 cartItem.quantity = prod.quantity;
-
                 totalPrice += cartItem.quantity * cartItem.price;
                 cartItems.push(cartItem);
-                
                 if(cartItems.length === result.length){
                     response.json({
                         totalItems: cartItems.length,
@@ -62,6 +58,7 @@ router.post('/addToCart', function(request, response, next) {
         quantity: request.body.quantity
     };
 
+
     Cart.addToCart(query, function(error, result) {
         var cartItems = [];
         var totalPrice = 0;
@@ -70,17 +67,14 @@ router.post('/addToCart', function(request, response, next) {
             Products.findOne({'_id': ObjectID(prod.productId)}, function(err, res){
                 var cartItem = {};
                 res = utility.toJson(res);
-
                 cartItem.name = res.name;
                 cartItem.style = res.productId;
                 cartItem.price = res.price;
                 cartItem.image = res.images.thumb[0];
                 cartItem.quantity = prod.quantity;
-
                 totalPrice += cartItem.quantity * cartItem.price;
                 cartItems.push(cartItem);
-
-                if(result.length - 1 === index){
+                if(result.length === cartItems.length){
                     response.json({
                         totalItems: cartItems.length,
                         totalPrice: totalPrice,
@@ -89,6 +83,14 @@ router.post('/addToCart', function(request, response, next) {
                 }
             });
         });
+
+        if (!result.length) {
+            response.json({
+                totalItems: cartItems.length,
+                totalPrice: totalPrice,
+                products: cartItems
+            });
+        }
     });
 });
 

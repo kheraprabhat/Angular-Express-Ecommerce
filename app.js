@@ -48,6 +48,11 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*app.use(function(req, res) {
+    console.log(req);
+    res.sendfile(__dirname + '/public/index.html');
+});*/
+
 require('./routes/auth')(app);
 
 

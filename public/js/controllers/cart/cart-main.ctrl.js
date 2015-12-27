@@ -4,8 +4,7 @@
     var CartMainCtrl = function (rootScope, utility, cartSrvc, myAccountSrvc) {
         var vm = this;
 
-        function getAllCartItems(){
-            var user = myAccountSrvc.getUser();
+        function getAllCartItems(user){
             cartSrvc.get({username: user ? user.username : 'anonymous'}, function(items){
                 vm.cartItems = items;
                 utility.addStorage('cartItemsReceived', items);
@@ -13,22 +12,17 @@
             });
         }
 
-        getAllCartItems();
+        getAllCartItems(myAccountSrvc.getUser());
 
         rootScope.$on('authenticationcompleted', function(){
-            getAllCartItems();
+            getAllCartItems(myAccountSrvc.getUser());
         });
 
         vm.incrementQuantity = function(id, index) {
             if (vm.cartItems.products[index].quantity < 10) {
                 cartSrvc.update({ id: id }, {quantity: +vm.cartItems.products[index].quantity + 1}, function(result){
                     if(result.status){
-                        var user = myAccountSrvc.getUser();        
-                        cartSrvc.get({username: user ? user.username : 'anonymous'}, function(items){
-                            vm.cartItems = items;
-                            utility.addStorage('cartItemsReceived', items);
-                            rootScope.$broadcast('cartItemsReceived');
-                        });
+                        getAllCartItems(myAccountSrvc.getUser());
                     }
                 });
             }
@@ -38,12 +32,7 @@
             if(vm.cartItems.products[index].quantity > 1){
                 cartSrvc.update({ id: id }, {quantity: vm.cartItems.products[index].quantity - 1}, function(result){
                     if(result.status){
-                        var user = myAccountSrvc.getUser();        
-                        cartSrvc.get({username: user ? user.username : 'anonymous'}, function(items){
-                            vm.cartItems = items;
-                            utility.addStorage('cartItemsReceived', items);
-                            rootScope.$broadcast('cartItemsReceived');
-                        });
+                        getAllCartItems(myAccountSrvc.getUser());
                     }
                 });
             }
@@ -52,12 +41,7 @@
         vm.removeItem = function(id) {
             cartSrvc.delete({ id: id }, function(result){
                 if(result.status){
-                    var user = myAccountSrvc.getUser();        
-                    cartSrvc.get({username: user ? user.username : 'anonymous'}, function(items){
-                        vm.cartItems = items;
-                        utility.addStorage('cartItemsReceived', items);
-                        rootScope.$broadcast('cartItemsReceived');
-                    });
+                    getAllCartItems(myAccountSrvc.getUser());
                 }
             });
         };

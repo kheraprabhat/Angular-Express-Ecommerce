@@ -17,24 +17,20 @@ function _getCartItems(query, defaultCallback) {
 function _addToCart(query, defaultCallback) {
     Cart.find({'username': query.username, 'productId': ObjectID(query.productId)}, function(error, result) {
         if (result.length) {
-            Cart.update({'productId': ObjectID(query.productId)}, {
+            Cart.update({'username': query.username, 'productId': ObjectID(query.productId)}, {
                 quantity: query.quantity
             }, function(err, numberAffected, rawResponse) {
-                Cart.find({}, defaultCallback);
+                Cart.find({'username': query.username}, defaultCallback);
             });
-
         } else {
             var model = new Cart();
             model._id = new ObjectID();
             model.productId = ObjectID(query.productId);
-
             model.username = query.username;
             model.quantity = query.quantity;
-
             model.save(function(error, doc) {
-                Cart.find({}, defaultCallback);
+                Cart.find({'username': query.username}, defaultCallback);
             });
-
         }
     });
 }
